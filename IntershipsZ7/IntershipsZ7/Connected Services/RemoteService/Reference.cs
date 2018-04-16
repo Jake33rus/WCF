@@ -15,17 +15,11 @@ namespace IntershipsZ7.RemoteService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RemoteService.ISaver")]
     public interface ISaver {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/GetResult", ReplyAction="http://tempuri.org/ISaver/GetResultResponse")]
-        string GetResult();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/GetResult", ReplyAction="http://tempuri.org/ISaver/GetResultResponse")]
-        System.Threading.Tasks.Task<string> GetResultAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/DBSave", ReplyAction="http://tempuri.org/ISaver/DBSaveResponse")]
+        string DBSave(CommonLib.Models.Immovables im);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/DBSave", ReplyAction="http://tempuri.org/ISaver/DBSaveResponse")]
-        void DBSave(CommonLib.Models.Immovables im);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/DBSave", ReplyAction="http://tempuri.org/ISaver/DBSaveResponse")]
-        System.Threading.Tasks.Task DBSaveAsync(CommonLib.Models.Immovables im);
+        System.Threading.Tasks.Task<string> DBSaveAsync(CommonLib.Models.Immovables im);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,19 +49,11 @@ namespace IntershipsZ7.RemoteService {
                 base(binding, remoteAddress) {
         }
         
-        public string GetResult() {
-            return base.Channel.GetResult();
+        public string DBSave(CommonLib.Models.Immovables im) {
+            return base.Channel.DBSave(im);
         }
         
-        public System.Threading.Tasks.Task<string> GetResultAsync() {
-            return base.Channel.GetResultAsync();
-        }
-        
-        public void DBSave(CommonLib.Models.Immovables im) {
-            base.Channel.DBSave(im);
-        }
-        
-        public System.Threading.Tasks.Task DBSaveAsync(CommonLib.Models.Immovables im) {
+        public System.Threading.Tasks.Task<string> DBSaveAsync(CommonLib.Models.Immovables im) {
             return base.Channel.DBSaveAsync(im);
         }
     }

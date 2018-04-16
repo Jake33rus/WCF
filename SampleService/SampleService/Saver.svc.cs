@@ -14,16 +14,8 @@ namespace SampleService
     public class Saver : ISaver 
     {
         ServiceOperationResult operationResult = new ServiceOperationResult(); 
-        public string GetResult()
-        {
-            if (operationResult.CheckExeption)
-            {
-                return "При сохранении произошла ошибка ->" + operationResult.Result;
-            }
-            return "Изменения сохранены"; 
-        }
-        
-        public void DBSave(Immovables im)
+  
+        public string DBSave(Immovables im)
         {
             try
             {
@@ -32,9 +24,14 @@ namespace SampleService
             }
             catch (Exception e)
             {
-                operationResult.Result = e.Message;
-                operationResult.CheckExeption = true; 
+                operationResult.Message = e.Message;
+                operationResult.IsSuccess = true; 
             }
+            if (operationResult.IsSuccess)
+            {
+                return "При сохранении произошла ошибка ->" + operationResult.Message;
+            }
+            return "Изменения сохранены";
         }
     }
 }

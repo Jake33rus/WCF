@@ -7,12 +7,6 @@
       <xsd:import schemaLocation="http://localhost:59821/SampleService/Saver.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CommonLib.Models" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ISaver_GetResult_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetResult" />
-  </wsdl:message>
-  <wsdl:message name="ISaver_GetResult_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetResultResponse" />
-  </wsdl:message>
   <wsdl:message name="ISaver_DBSave_InputMessage">
     <wsdl:part name="parameters" element="tns:DBSave" />
   </wsdl:message>
@@ -20,10 +14,6 @@
     <wsdl:part name="parameters" element="tns:DBSaveResponse" />
   </wsdl:message>
   <wsdl:portType name="ISaver">
-    <wsdl:operation name="GetResult">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISaver/GetResult" message="tns:ISaver_GetResult_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISaver/GetResultResponse" message="tns:ISaver_GetResult_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="DBSave">
       <wsdl:input wsaw:Action="http://tempuri.org/ISaver/DBSave" message="tns:ISaver_DBSave_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISaver/DBSaveResponse" message="tns:ISaver_DBSave_OutputMessage" />
@@ -31,15 +21,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISaver" type="tns:ISaver">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetResult">
-      <soap:operation soapAction="http://tempuri.org/ISaver/GetResult" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="DBSave">
       <soap:operation soapAction="http://tempuri.org/ISaver/DBSave" style="document" />
       <wsdl:input>
