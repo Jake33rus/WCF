@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f413443b-286c-40ac-83db-f9ab31757bfd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:59821/SampleService/Saver.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Saver.xsd" MetadataType="Schema" ID="9aaf7766-c228-4c9f-81ec-f992342246ac" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?xsd=xsd1" />
+    <MetadataFile FileName="Saver1.xsd" MetadataType="Schema" ID="094934cb-9960-489c-841a-d6e30a4254b8" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?xsd=xsd0" />
+    <MetadataFile FileName="Saver.disco" MetadataType="Disco" ID="c37b79a5-0c3e-4199-92db-bef48d44220b" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?disco" />
+    <MetadataFile FileName="Saver2.xsd" MetadataType="Schema" ID="ee610469-effe-47e3-8b65-b80f6c1f6be7" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?xsd=xsd2" />
+    <MetadataFile FileName="Saver.wsdl" MetadataType="Wsdl" ID="ee11c371-3cc0-4508-8241-db3017f3e50b" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
