@@ -15,7 +15,7 @@ namespace SampleService
     {
         ServiceOperationResult operationResult = new ServiceOperationResult(); 
   
-        public string DBSave(Immovables im)
+        public ServiceOperationResult DBSave(Immovables im)
         {
             try
             {
@@ -27,11 +27,7 @@ namespace SampleService
                 operationResult.Message = e.Message;
                 operationResult.IsSuccess = true; 
             }
-            if (operationResult.IsSuccess)
-            {
-                return "При сохранении произошла ошибка ->" + operationResult.Message;
-            }
-            return "Изменения сохранены";
+            return operationResult;
         }
     }
 }

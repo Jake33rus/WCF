@@ -57,7 +57,15 @@ namespace IntershipsZ7.ViewModels
                         string message = null;
                         foreach (var immo in ImmoObsCol)
                           {
-                            message = client.DBSave(immo);
+                            var info = client.DBSave(immo);
+                            if (info.IsSuccess)
+                            {
+                                message = info.Message;
+                            }
+                            else
+                            {
+                                message = "Изменения сохранены";
+                            }
                           }
                         MessageBox.Show(message, "IntershipsZ8");
                     }));
