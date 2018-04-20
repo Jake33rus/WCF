@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Data.Entity;
 using IntershipsZ7.RemoteService;
+using System.Threading;
 
 namespace IntershipsZ7.ViewModels
 {
@@ -18,7 +19,17 @@ namespace IntershipsZ7.ViewModels
     {
         SaverClient client = new SaverClient("BasicHttpBinding_ISaver");
         ImmoRepos ir = new ImmoRepos();
-        ImmoRepos saveIr;
+        bool isPBVisible;
+        public bool IsPBVisible
+        {
+            get { return isPBVisible; }
+            set
+            {
+                isPBVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        ImmoRepos saveIr = new ImmoRepos();
         public ObservableCollection<Immovables> ImmoObsCol { get; set; }
         public List<TypesViewModel> TypesList { get; set; }
         private int selectedType;
@@ -54,21 +65,37 @@ namespace IntershipsZ7.ViewModels
                 return saveCommand ??
                     (saveCommand = new RelayCommand(obj =>
                     {
-                        string message = null;
-                        foreach (var immo in ImmoObsCol)
-                          {
-                            var info = client.DBSave(immo);
-                            if (info.IsSuccess)
-                            {
-                                message = info.Message;
-                            }
-                            else
-                            {
-                                message = "Изменения сохранены";
-                            }
-                          }
-                        MessageBox.Show(message, "IntershipsZ8");
+                        Thread myThread = new Thread(new ThreadStart(Save));
+                        myThread.Start();
                     }));
+            }
+        }
+        private void Save()
+        {
+            IsPBVisible = true;
+            string message = null;
+            foreach (var immo in ImmoObsCol)
+            {
+                var info = client.DBSave(immo);
+                message = info.IsSuccess ? info.Message : "Изменения сохранены";
+            }
+            IsPBVisible = false;
+            MessageBox.Show(message, "IntershipsZ8");  
+        }
+      private void AutoUpdate()
+        {
+            var temp = ImmoObsCol.First().Version;
+            ImmoRepos tempIr = new ImmoRepos(); 
+            while (true)
+            {
+
+                var version = tempIr.GetVersion();
+                if (!temp.SequenceEqual(version))
+                {
+                    GetImmovables();
+                    temp = version;
+                }
+                Thread.Sleep(5000);
             }
         }
         private RelayCommand repealCommand;
@@ -78,9 +105,8 @@ namespace IntershipsZ7.ViewModels
             {
                 return repealCommand ??
                     (repealCommand = new RelayCommand(obj =>
-                    {   
-                        
-                        foreach(var immo in ir.Load())
+                    {
+                        foreach (var immo in ir.Load())
                         { 
                             var temp = saveIr.LoadByID(immo.Id);
                             immo.Type = temp.Type;
@@ -94,9 +120,13 @@ namespace IntershipsZ7.ViewModels
         public ImmovablesViewModel()
         {
             GetImmovables();
-            GetTypeList(); 
+            GetTypeList();
+            Thread hiddenThread = new Thread(new ThreadStart(AutoUpdate))
+            {
+                IsBackground = true
+            };
+            hiddenThread.Start();
         }
-
         public virtual void GetImmovables()
         { 
             ImmoObsCol = new ObservableCollection<Immovables>();

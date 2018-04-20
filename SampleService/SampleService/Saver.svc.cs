@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Threading;
 
 namespace SampleService
 {
@@ -21,6 +22,7 @@ namespace SampleService
             {
                 ImmoRepos ir = new ImmoRepos();
                 ir.Update(im.Id, im);
+                Thread.Sleep(1000);
             }
             catch (Exception e)
             {
