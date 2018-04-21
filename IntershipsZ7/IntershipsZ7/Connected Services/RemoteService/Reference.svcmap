@@ -22,10 +22,11 @@
     <MetadataSource Address="http://localhost:59821/SampleService/Saver.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="Saver.xsd" MetadataType="Schema" ID="9aaf7766-c228-4c9f-81ec-f992342246ac" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?xsd=xsd1" />
     <MetadataFile FileName="Saver1.xsd" MetadataType="Schema" ID="094934cb-9960-489c-841a-d6e30a4254b8" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?xsd=xsd0" />
-    <MetadataFile FileName="Saver.disco" MetadataType="Disco" ID="c37b79a5-0c3e-4199-92db-bef48d44220b" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?disco" />
     <MetadataFile FileName="Saver2.xsd" MetadataType="Schema" ID="ee610469-effe-47e3-8b65-b80f6c1f6be7" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?xsd=xsd2" />
+    <MetadataFile FileName="Saver.disco" MetadataType="Disco" ID="c37b79a5-0c3e-4199-92db-bef48d44220b" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?disco" />
+    <MetadataFile FileName="Saver3.xsd" MetadataType="Schema" ID="6c6b8672-c9c7-4d6b-845a-544ef78c2d38" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?xsd=xsd3" />
+    <MetadataFile FileName="Saver.xsd" MetadataType="Schema" ID="9aaf7766-c228-4c9f-81ec-f992342246ac" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?xsd=xsd1" />
     <MetadataFile FileName="Saver.wsdl" MetadataType="Wsdl" ID="ee11c371-3cc0-4508-8241-db3017f3e50b" SourceId="1" SourceUrl="http://localhost:59821/SampleService/Saver.svc?wsdl" />
   </Metadata>
   <Extensions>

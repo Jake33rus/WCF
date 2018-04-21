@@ -9,23 +9,80 @@
 //------------------------------------------------------------------------------
 
 namespace IntershipsZ7.RemoteService {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ServiceOperationResult", Namespace="http://schemas.datacontract.org/2004/07/SampleService")]
+    [System.SerializableAttribute()]
+    public partial class ServiceOperationResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsSuccessField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsSuccess {
+            get {
+                return this.IsSuccessField;
+            }
+            set {
+                if ((this.IsSuccessField.Equals(value) != true)) {
+                    this.IsSuccessField = value;
+                    this.RaisePropertyChanged("IsSuccess");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="RemoteService.ISaver")]
     public interface ISaver {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/GetResult", ReplyAction="http://tempuri.org/ISaver/GetResultResponse")]
-        string GetResult();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/GetResult", ReplyAction="http://tempuri.org/ISaver/GetResultResponse")]
-        System.Threading.Tasks.Task<string> GetResultAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/DBSave", ReplyAction="http://tempuri.org/ISaver/DBSaveResponse")]
+        IntershipsZ7.RemoteService.ServiceOperationResult DBSave(CommonLib.Models.Immovables im);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/DBSave", ReplyAction="http://tempuri.org/ISaver/DBSaveResponse")]
-        void DBSave(CommonLib.Models.Immovables im);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISaver/DBSave", ReplyAction="http://tempuri.org/ISaver/DBSaveResponse")]
-        System.Threading.Tasks.Task DBSaveAsync(CommonLib.Models.Immovables im);
+        System.Threading.Tasks.Task<IntershipsZ7.RemoteService.ServiceOperationResult> DBSaveAsync(CommonLib.Models.Immovables im);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,19 +112,11 @@ namespace IntershipsZ7.RemoteService {
                 base(binding, remoteAddress) {
         }
         
-        public string GetResult() {
-            return base.Channel.GetResult();
+        public IntershipsZ7.RemoteService.ServiceOperationResult DBSave(CommonLib.Models.Immovables im) {
+            return base.Channel.DBSave(im);
         }
         
-        public System.Threading.Tasks.Task<string> GetResultAsync() {
-            return base.Channel.GetResultAsync();
-        }
-        
-        public void DBSave(CommonLib.Models.Immovables im) {
-            base.Channel.DBSave(im);
-        }
-        
-        public System.Threading.Tasks.Task DBSaveAsync(CommonLib.Models.Immovables im) {
+        public System.Threading.Tasks.Task<IntershipsZ7.RemoteService.ServiceOperationResult> DBSaveAsync(CommonLib.Models.Immovables im) {
             return base.Channel.DBSaveAsync(im);
         }
     }

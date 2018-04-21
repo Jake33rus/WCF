@@ -14,10 +14,7 @@ namespace SampleService
     public interface ISaver
     {
         [OperationContract]
-        string GetResult();
-
-        [OperationContract]
-        void DBSave(Immovables im); 
+        ServiceOperationResult DBSave(Immovables im);
     }
 
 }

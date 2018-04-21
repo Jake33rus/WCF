@@ -121,6 +121,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\RemoteService\IntershipsZ7.RemoteService.ServiceOperationResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\RemoteService\Saver.wsdl" />
     <None Include="Connected Services\RemoteService\Saver.xsd">
       <SubType>Designer</SubType>
@@ -129,6 +132,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\RemoteService\Saver2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\RemoteService\Saver3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />

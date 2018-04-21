@@ -10,14 +10,7 @@ namespace SampleService
         public ServiceOperationResult()
         {
         }
-        public bool CheckExeption { get; set; }
-        public string Result { get; set; }
-
-        public ServiceOperationResult(string result)
-        {
-            Result = result;
-        }
-
-        
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
     }
 }
