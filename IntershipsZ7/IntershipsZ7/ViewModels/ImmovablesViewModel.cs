@@ -17,6 +17,27 @@ namespace IntershipsZ7.ViewModels
 {
     class ImmovablesViewModel:ChangeNotifier
     {
+        bool offAutoUpdate;
+        public double MaxPB { get; set; }
+        double valuePB;
+        public double ValuePB {
+        get { return valuePB; }
+            set
+            {
+                valuePB = value;
+                OnPropertyChanged();
+            }
+        }
+        bool isEnabledButton = true;
+        public bool IsEnabledButton
+        {
+            get { return isEnabledButton; }
+            set
+            {
+                isEnabledButton = value;
+                OnPropertyChanged();
+            }
+        }
         SaverClient client = new SaverClient("BasicHttpBinding_ISaver");
         ImmoRepos ir = new ImmoRepos();
         bool isPBVisible;
@@ -65,30 +86,36 @@ namespace IntershipsZ7.ViewModels
                 return saveCommand ??
                     (saveCommand = new RelayCommand(obj =>
                     {
-                        Thread myThread = new Thread(new ThreadStart(Save));
-                        myThread.Start();
+                        Task outerTask = Task.Factory.StartNew(() =>
+                        {
+                            IsEnabledButton = false;
+                            Task<string> innerTask = Task<string>.Factory.StartNew(() =>
+                            {
+                                string message = null;
+                                IsPBVisible = true; 
+                                foreach (var immo in ImmoObsCol)
+                                {
+                                    var info = client.DBSave(immo);
+                                    ValuePB ++;
+                                    message = info.IsSuccess ? info.Message : "Изменения сохранены";
+                                }
+                                IsPBVisible = false;
+                                ValuePB = 0;
+                                return message;
+                            });
+                            innerTask.Wait();
+                            IsEnabledButton = true;
+                            MessageBox.Show(innerTask.Result, "IntershipsZ8");
+                        });
                     }));
             }
         }
-        private void Save()
-        {
-            IsPBVisible = true;
-            string message = null;
-            foreach (var immo in ImmoObsCol)
-            {
-                var info = client.DBSave(immo);
-                message = info.IsSuccess ? info.Message : "Изменения сохранены";
-            }
-            IsPBVisible = false;
-            MessageBox.Show(message, "IntershipsZ8");  
-        }
       private void AutoUpdate()
-        {
-            var temp = ImmoObsCol.First().Version;
-            ImmoRepos tempIr = new ImmoRepos(); 
-            while (true)
+        {        
+            ImmoRepos tempIr = new ImmoRepos();
+            var temp = tempIr.GetVersion();
+            while (!offAutoUpdate)
             {
-
                 var version = tempIr.GetVersion();
                 if (!temp.SequenceEqual(version))
                 {
@@ -120,13 +147,11 @@ namespace IntershipsZ7.ViewModels
         public ImmovablesViewModel()
         {
             GetImmovables();
+            MaxPB = ImmoObsCol.Count();
             GetTypeList();
-            Thread hiddenThread = new Thread(new ThreadStart(AutoUpdate))
-            {
-                IsBackground = true
-            };
-            hiddenThread.Start();
+            var hiddenTask = Task.Factory.StartNew(AutoUpdate);
         }
+
         public virtual void GetImmovables()
         { 
             ImmoObsCol = new ObservableCollection<Immovables>();
