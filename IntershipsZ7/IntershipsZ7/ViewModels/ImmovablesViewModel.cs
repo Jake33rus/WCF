@@ -17,7 +17,7 @@ namespace IntershipsZ7.ViewModels
 {
     class ImmovablesViewModel:ChangeNotifier
     {
-        bool offAutoUpdate;
+        public bool IsAutoUpdate { get; set; }
         public double MaxPB { get; set; }
         double valuePB;
         public double ValuePB {
@@ -79,42 +79,48 @@ namespace IntershipsZ7.ViewModels
             }
         }
         private RelayCommand saveCommand;
-        public RelayCommand SaveCommand
+        public  RelayCommand SaveCommand
         {
             get
             {
                 return saveCommand ??
-                    (saveCommand = new RelayCommand(obj =>
+                    (saveCommand = new RelayCommand(async obj => 
                     {
-                        Task outerTask = Task.Factory.StartNew(() =>
+                        string message = null;
+                        try
                         {
-                            IsEnabledButton = false;
-                            Task<string> innerTask = Task<string>.Factory.StartNew(() =>
-                            {
-                                string message = null;
-                                IsPBVisible = true; 
-                                foreach (var immo in ImmoObsCol)
-                                {
-                                    var info = client.DBSave(immo);
-                                    ValuePB ++;
-                                    message = info.IsSuccess ? info.Message : "Изменения сохранены";
-                                }
-                                IsPBVisible = false;
-                                ValuePB = 0;
-                                return message;
-                            });
-                            innerTask.Wait();
-                            IsEnabledButton = true;
-                            MessageBox.Show(innerTask.Result, "IntershipsZ8");
-                        });
+                            var task = Task<string>.Factory.StartNew(Save);
+                            message = await task;
+                        }
+                        catch(Exception ex)
+                        {
+                            message = string.Format("Произошла ошибка:{0}", ex.Message); 
+                        }
+                        IsEnabledButton = true;
+                        IsPBVisible = false;
+                        ValuePB = 0;
+                        MessageBox.Show(message, "IntershipsZ8");
                     }));
             }
+        }
+        private string Save()
+        {
+            IsEnabledButton = false;
+            IsPBVisible = true;
+            string message = null;
+            foreach (var immo in ImmoObsCol)
+            {
+                var info = client.DBSave(immo);
+                ValuePB++;
+                message = info.IsSuccess ? info.Message : "Изменения сохранены";
+            }
+            return message;
         }
       private void AutoUpdate()
         {        
             ImmoRepos tempIr = new ImmoRepos();
             var temp = tempIr.GetVersion();
-            while (!offAutoUpdate)
+            while (!IsAutoUpdate)
             {
                 var version = tempIr.GetVersion();
                 if (!temp.SequenceEqual(version))
@@ -123,6 +129,18 @@ namespace IntershipsZ7.ViewModels
                     temp = version;
                 }
                 Thread.Sleep(5000);
+            }
+        }
+        private RelayCommand offAutoUpdateCommand;
+        public RelayCommand OffAutoUpdateCommand
+        {
+            get
+            {
+                return offAutoUpdateCommand ??
+                    (offAutoUpdateCommand = new RelayCommand(obj =>
+                    {
+                        IsAutoUpdate = true;
+                    }));
             }
         }
         private RelayCommand repealCommand;
