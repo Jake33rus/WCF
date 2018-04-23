@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:IntershipsZ7"
         xmlns:vm="clr-namespace:IntershipsZ7.ViewModels"
         mc:Ignorable="d"
-        Title="IntershipsZ8" Height="512.573" Width="525">
-
+        Title="IntershipsZ8" Height="512.573" Width="525"
+        Closing="Window_Closing">
+        
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
     </Window.Resources>
@@ -84,6 +85,5 @@
         <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="10,338,0,0" VerticalAlignment="Top" Width="124" Height="37" IsEnabled="{Binding IsEnabledButton}"/>
         <ProgressBar HorizontalAlignment="Right" Margin="10,338,10,0" VerticalAlignment="Top" Width="350" Height="37" Minimum="0" Maximum="{Binding MaxPB}" Value="{Binding ValuePB}" Visibility="{Binding IsPBVisible, Converter={StaticResource BoolToVisConverter}}"></ProgressBar>
         <Button Content="Repeal" Command="{Binding RepealCommand}" HorizontalAlignment="Left" Margin="10,404,0,0" VerticalAlignment="Top" Width="124" Height="37"/>
-        <Button Content="Off AutoUpdate" Command="{Binding OffAutoUpdateCommand}" HorizontalAlignment="Left" Margin="398,421,0,0" VerticalAlignment="Top" Width="109"/>
     </Grid>
 </Window>

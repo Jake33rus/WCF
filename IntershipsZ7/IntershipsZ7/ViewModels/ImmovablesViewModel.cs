@@ -17,7 +17,7 @@ namespace IntershipsZ7.ViewModels
 {
     class ImmovablesViewModel:ChangeNotifier
     {
-        public bool IsAutoUpdate { get; set; }
+        public CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
         public double MaxPB { get; set; }
         double valuePB;
         public double ValuePB {
@@ -105,22 +105,22 @@ namespace IntershipsZ7.ViewModels
         }
         private string Save()
         {
+            string message = null;
             IsEnabledButton = false;
             IsPBVisible = true;
-            string message = null;
             foreach (var immo in ImmoObsCol)
-            {
-                var info = client.DBSave(immo);
-                ValuePB++;
-                message = info.IsSuccess ? info.Message : "Изменения сохранены";
-            }
+                {
+                    var info = client.DBSave(immo);
+                    ValuePB++;
+                    message = info.IsSuccess ? info.Message : "Изменения сохранены";
+                }
             return message;
         }
-      private void AutoUpdate()
+      private void AutoUpdate(CancellationToken token)
         {        
             ImmoRepos tempIr = new ImmoRepos();
             var temp = tempIr.GetVersion();
-            while (!IsAutoUpdate)
+            while (!token.IsCancellationRequested)
             {
                 var version = tempIr.GetVersion();
                 if (!temp.SequenceEqual(version))
@@ -129,18 +129,6 @@ namespace IntershipsZ7.ViewModels
                     temp = version;
                 }
                 Thread.Sleep(5000);
-            }
-        }
-        private RelayCommand offAutoUpdateCommand;
-        public RelayCommand OffAutoUpdateCommand
-        {
-            get
-            {
-                return offAutoUpdateCommand ??
-                    (offAutoUpdateCommand = new RelayCommand(obj =>
-                    {
-                        IsAutoUpdate = true;
-                    }));
             }
         }
         private RelayCommand repealCommand;
@@ -167,7 +155,8 @@ namespace IntershipsZ7.ViewModels
             GetImmovables();
             MaxPB = ImmoObsCol.Count();
             GetTypeList();
-            var hiddenTask = Task.Factory.StartNew(AutoUpdate);
+            CancellationToken token = cancelTokenSource.Token;
+            var hiddenTask = Task.Factory.StartNew(()=>AutoUpdate(token));
         }
 
         public virtual void GetImmovables()
