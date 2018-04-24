@@ -90,6 +90,7 @@ namespace IntershipsZ7.ViewModels
                         try
                         {
                             var task = Task<string>.Factory.StartNew(Save);
+                            IsEnabledButton = false;
                             message = await task;
                         }
                         catch(Exception ex)
@@ -106,7 +107,6 @@ namespace IntershipsZ7.ViewModels
         private string Save()
         {
             string message = null;
-            IsEnabledButton = false;
             IsPBVisible = true;
             foreach (var immo in ImmoObsCol)
                 {
@@ -125,7 +125,10 @@ namespace IntershipsZ7.ViewModels
                 var version = tempIr.GetVersion();
                 if (!temp.SequenceEqual(version))
                 {
-                    GetImmovables();
+                    foreach (var item in ir.Load())
+                    {
+                        ImmoObsCol.Add(item);
+                    }
                     temp = version;
                 }
                 Thread.Sleep(5000);
