@@ -120,15 +120,18 @@ namespace IntershipsZ7.ViewModels
         {        
             ImmoRepos tempIr = new ImmoRepos();
             var temp = tempIr.GetVersion();
+            var tempCollection = new ObservableCollection<Immovables>();
             while (!token.IsCancellationRequested)
             {
                 var version = tempIr.GetVersion();
                 if (!temp.SequenceEqual(version))
                 {
+                    tempCollection.Clear();
                     foreach (var item in ir.Load())
                     {
-                        ImmoObsCol.Add(item);
+                        tempCollection.Add(item);
                     }
+                    ImmoObsCol = tempCollection; 
                     temp = version;
                 }
                 Thread.Sleep(5000);
