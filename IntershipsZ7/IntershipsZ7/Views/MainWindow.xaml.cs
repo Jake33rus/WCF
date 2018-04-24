@@ -19,11 +19,17 @@ namespace IntershipsZ7.Views
 
     public partial class MainWindow : Window
     {
+        ImmovablesViewModel immoVM;
         public MainWindow()
         {
             InitializeComponent();
-            var immoVM = new ImmovablesViewModel();
+            immoVM = new ImmovablesViewModel();
             DataContext = immoVM;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        { 
+            immoVM.cancelTokenSource.Cancel();
         }
     }
 }

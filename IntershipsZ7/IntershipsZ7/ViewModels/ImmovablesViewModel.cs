@@ -17,7 +17,7 @@ namespace IntershipsZ7.ViewModels
 {
     class ImmovablesViewModel:ChangeNotifier
     {
-        bool offAutoUpdate;
+        public CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
         public double MaxPB { get; set; }
         double valuePB;
         public double ValuePB {
@@ -79,47 +79,59 @@ namespace IntershipsZ7.ViewModels
             }
         }
         private RelayCommand saveCommand;
-        public RelayCommand SaveCommand
+        public  RelayCommand SaveCommand
         {
             get
             {
                 return saveCommand ??
-                    (saveCommand = new RelayCommand(obj =>
+                    (saveCommand = new RelayCommand(async obj => 
                     {
-                        Task outerTask = Task.Factory.StartNew(() =>
+                        string message = null;
+                        try
                         {
+                            var task = Task<string>.Factory.StartNew(Save);
                             IsEnabledButton = false;
-                            Task<string> innerTask = Task<string>.Factory.StartNew(() =>
-                            {
-                                string message = null;
-                                IsPBVisible = true; 
-                                foreach (var immo in ImmoObsCol)
-                                {
-                                    var info = client.DBSave(immo);
-                                    ValuePB ++;
-                                    message = info.IsSuccess ? info.Message : "Изменения сохранены";
-                                }
-                                IsPBVisible = false;
-                                ValuePB = 0;
-                                return message;
-                            });
-                            innerTask.Wait();
-                            IsEnabledButton = true;
-                            MessageBox.Show(innerTask.Result, "IntershipsZ8");
-                        });
+                            message = await task;
+                        }
+                        catch(Exception ex)
+                        {
+                            message = string.Format("Произошла ошибка:{0}", ex.Message); 
+                        }
+                        IsEnabledButton = true;
+                        IsPBVisible = false;
+                        ValuePB = 0;
+                        MessageBox.Show(message, "IntershipsZ8");
                     }));
             }
         }
-      private void AutoUpdate()
+        private string Save()
+        {
+            string message = null;
+            IsPBVisible = true;
+            foreach (var immo in ImmoObsCol)
+                {
+                    var info = client.DBSave(immo);
+                    ValuePB++;
+                    message = info.IsSuccess ? info.Message : "Изменения сохранены";
+                }
+            return message;
+        }
+      private void AutoUpdate(CancellationToken token)
         {        
             ImmoRepos tempIr = new ImmoRepos();
             var temp = tempIr.GetVersion();
-            while (!offAutoUpdate)
+            var tempCollection = new ObservableCollection<Immovables>();
+            while (!token.IsCancellationRequested)
             {
                 var version = tempIr.GetVersion();
                 if (!temp.SequenceEqual(version))
                 {
-                    GetImmovables();
+                    tempCollection.Clear();
+                    foreach (var item in ir.Load())
+                    {
+                        tempCollection.Add(item);
+                    }
+                    ImmoObsCol = tempCollection; 
                     temp = version;
                 }
                 Thread.Sleep(5000);
@@ -149,7 +161,8 @@ namespace IntershipsZ7.ViewModels
             GetImmovables();
             MaxPB = ImmoObsCol.Count();
             GetTypeList();
-            var hiddenTask = Task.Factory.StartNew(AutoUpdate);
+            CancellationToken token = cancelTokenSource.Token;
+            var hiddenTask = Task.Factory.StartNew(()=>AutoUpdate(token));
         }
 
         public virtual void GetImmovables()

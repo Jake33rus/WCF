@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:IntershipsZ7"
         xmlns:vm="clr-namespace:IntershipsZ7.ViewModels"
         mc:Ignorable="d"
-        Title="IntershipsZ8" Height="512.573" Width="525">
+        Title="IntershipsZ8" Height="512.573" Width="525"
+        Closing="Window_Closing">
+        
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
     </Window.Resources>

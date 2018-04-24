@@ -13,6 +13,7 @@
       <xs:element minOccurs="0" name="SizePlot" nillable="true" type="xs:double" />
       <xs:element minOccurs="0" name="Type" type="xs:int" />
       <xs:element minOccurs="0" name="TypeApart" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Version" nillable="true" type="xs:base64Binary" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Immovables" nillable="true" type="tns:Immovables" />
