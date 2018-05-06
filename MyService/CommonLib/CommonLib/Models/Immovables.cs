@@ -6,7 +6,7 @@ namespace CommonLib.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Immovables : IId
+    public partial class Immovables:IId
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
@@ -34,7 +34,7 @@ namespace CommonLib.Models
         public double? SizePlot { get; set; }
 
         public string TypeApart { get; set; }
-        
+
         [Timestamp]
         public byte[] Version { get; set; }
     }

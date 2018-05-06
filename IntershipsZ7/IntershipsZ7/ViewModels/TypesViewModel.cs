@@ -26,6 +26,5 @@ namespace IntershipsZ7.ViewModels
                 OnPropertyChanged();
             }
         }
-       
     }
 }

@@ -3,31 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CommonLib.Models;
-using CommonLib.Repositories;
 using System.Windows;
 using System.Collections.ObjectModel;
 
 using System.Reflection;
 using System.Data.Entity;
 using IntershipsZ7.RemoteService;
-using System.Threading;
+using IntershipsZ7.MyService;
+using System.ServiceModel;
 
 namespace IntershipsZ7.ViewModels
 {
     class ImmovablesViewModel:ChangeNotifier
     {
-        public CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-        public double MaxPB { get; set; }
-        double valuePB;
-        public double ValuePB {
-        get { return valuePB; }
+        bool isChange = false;
+        public bool IsChange { get { return isChange; }
             set
             {
-                valuePB = value;
+                isChange = value;
                 OnPropertyChanged();
             }
         }
+        bool isProgrammingChange = false;
         bool isEnabledButton = true;
         public bool IsEnabledButton
         {
@@ -38,8 +35,6 @@ namespace IntershipsZ7.ViewModels
                 OnPropertyChanged();
             }
         }
-        SaverClient client = new SaverClient("BasicHttpBinding_ISaver");
-        ImmoRepos ir = new ImmoRepos();
         bool isPBVisible;
         public bool IsPBVisible
         {
@@ -50,93 +45,83 @@ namespace IntershipsZ7.ViewModels
                 OnPropertyChanged();
             }
         }
-        ImmoRepos saveIr = new ImmoRepos();
-        public ObservableCollection<Immovables> ImmoObsCol { get; set; }
-        public List<TypesViewModel> TypesList { get; set; }
+        
+        ServiceClient client;
+        public ObservableCollection<ImmoInfo> ImmoObsCol { get; set; }
         private int selectedType;
-        private Immovables selectedImmo;
         public virtual int SelectedType
         {
             get { return selectedType; }
             set
             {
                 selectedType = value;
-                ChangeType();
+                Changed("Type", selectedType);
                 OnPropertyChanged();
             }
         }
-
+        private Immovables selectedImmo;
         public Immovables SelectedImmo
         {
             get { return selectedImmo; }
             set
             {
+                isProgrammingChange = true;
                 selectedImmo = value;
                 selectedType = selectedImmo.Type;
                 OnPropertyChanged("SelectedType");
                 OnPropertyChanged();
-                
+                isProgrammingChange = false;
             }
         }
+        private ImmoInfo selectedListView;
+        public ImmoInfo SelectedListView
+        {
+            get { return selectedListView; }
+            set
+            {
+                IsSaving();
+                selectedListView = value;
+                SelectedImmo = client.StartImmovablesEdit(selectedListView.id);
+            }
+        }
+
+        public List<TypesViewModel> TypesList { get; set; }
+
         private RelayCommand saveCommand;
-        public  RelayCommand SaveCommand
+        public RelayCommand SaveCommand
         {
             get
             {
                 return saveCommand ??
-                    (saveCommand = new RelayCommand(async obj => 
+                    (saveCommand = new RelayCommand(obj =>
                     {
-                        string message = null;
-                        try
-                        {
-                            var task = Task<string>.Factory.StartNew(Save);
-                            IsEnabledButton = false;
-                            message = await task;
-                        }
-                        catch(Exception ex)
-                        {
-                            message = string.Format("Произошла ошибка:{0}", ex.Message); 
-                        }
-                        IsEnabledButton = true;
-                        IsPBVisible = false;
-                        ValuePB = 0;
-                        MessageBox.Show(message, "IntershipsZ8");
+                        Saver();
                     }));
             }
         }
-        private string Save()
+        private async void Saver()
         {
             string message = null;
-            IsPBVisible = true;
-            foreach (var immo in ImmoObsCol)
-                {
-                    var info = client.DBSave(immo);
-                    ValuePB++;
-                    message = info.IsSuccess ? info.Message : "Изменения сохранены";
-                }
-            return message;
-        }
-      private void AutoUpdate(CancellationToken token)
-        {        
-            ImmoRepos tempIr = new ImmoRepos();
-            var temp = tempIr.GetVersion();
-            var tempCollection = new ObservableCollection<Immovables>();
-            while (!token.IsCancellationRequested)
+            try
             {
-                var version = tempIr.GetVersion();
-                if (!temp.SequenceEqual(version))
+                var task = Task.Factory.StartNew(() =>
                 {
-                    tempCollection.Clear();
-                    foreach (var item in ir.Load())
-                    {
-                        tempCollection.Add(item);
-                    }
-                    ImmoObsCol = tempCollection; 
-                    temp = version;
-                }
-                Thread.Sleep(5000);
+                    IsPBVisible = true;
+                    var info = client.DBSave();
+                    message = info.IsSuccess ? info.Message : "Изменения сохранены";
+                });
+                await task;
             }
+            catch (Exception ex)
+            {
+                message = string.Format("Произошла ошибка:{0}", ex.Message);
+            }
+            IsEnabledButton = true;
+            IsPBVisible = false;
+            MessageBox.Show(message, "MyApp");
+            IsChange = false;
         }
+
         private RelayCommand repealCommand;
         public RelayCommand RepealCommand
         {
@@ -145,35 +130,44 @@ namespace IntershipsZ7.ViewModels
                 return repealCommand ??
                     (repealCommand = new RelayCommand(obj =>
                     {
-                        foreach (var immo in ir.Load())
-                        { 
-                            var temp = saveIr.LoadByID(immo.Id);
-                            immo.Type = temp.Type;
-                        }
-                        ir.SaveChanges();
-                        SelectedImmo = selectedImmo;
+                        SelectedImmo = client.CancelEdit();
+                        IsChange = false;
                         MessageBox.Show("Изменения отменены!", "IntershipsZ8");
                     }));
             }
         }
+        public void IsSaving()
+        {
+            if (isChange)
+            {
+                string msg = "Сохранить изменения?";
+                MessageBoxResult result = MessageBox.Show(msg, "MyApp", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (result == MessageBoxResult.Yes)
+                {
+                    Saver();
+                }
+                if (result == MessageBoxResult.No)
+                {
+                    selectedImmo = client.CancelEdit();
+                    IsChange = false;
+                }
+            }
+        }
         public ImmovablesViewModel()
         {
+            client = new ServiceClient("WSHttpBinding_IService");
             GetImmovables();
-            MaxPB = ImmoObsCol.Count();
-            GetTypeList();
-            CancellationToken token = cancelTokenSource.Token;
-            var hiddenTask = Task.Factory.StartNew(()=>AutoUpdate(token));
+            GetTypeList(); 
         }
-
+        
         public virtual void GetImmovables()
         { 
-            ImmoObsCol = new ObservableCollection<Immovables>();
-            foreach (var item in ir.Load()) 
+            ImmoObsCol = new ObservableCollection<ImmoInfo>();
+            foreach (var item in client.GetImmo()) 
              {
                 ImmoObsCol.Add(item);
              }
         }
-
         public void GetTypeList()
         {
             TypesList = new List<TypesViewModel>();
@@ -183,9 +177,24 @@ namespace IntershipsZ7.ViewModels
             TypesList.Add(new TypesViewModel() { Id = 5, TypeName = "LivingSpace" });
         }
        
-       public void ChangeType()
+
+        public void Changed(string fieldName, object val)
         {
-            ImmoObsCol.FirstOrDefault(x => x == selectedImmo).Type = SelectedType;          
+            if (!isProgrammingChange)
+            {
+                try
+                {
+                    if (val != "")
+                    {
+                        SelectedImmo = client.SetImmovablesFieldValue(fieldName, val);
+                    }
+                }
+                catch(FaultException exception)
+                {
+                    MessageBox.Show($"Ошибка - {exception.Message}","Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                IsChange = true;
+            }
         }
     }
 

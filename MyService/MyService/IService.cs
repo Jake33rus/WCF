@@ -4,17 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.ServiceModel.Web;
 using System.Text;
+using static MyService.Service;
 
-namespace SampleService
+namespace MyService
 {
     // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени интерфейса "IService1" в коде и файле конфигурации.
     [ServiceContract]
-    public interface ISaver
+    public interface IService
     {
         [OperationContract]
-        ServiceOperationResult DBSave(Immovables im);
+        List<ImmoInfo> GetImmo();
+        [OperationContract]
+        ServiceOperationResult DBSave();
+        [OperationContract]
+        Immovables StartImmovablesEdit(int id);
+        [OperationContract]
+        Immovables SetImmovablesFieldValue(string fieldName, object val);
+        [OperationContract]
+        Immovables CancelEdit();
     }
-
 }

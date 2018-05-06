@@ -6,19 +6,18 @@
         xmlns:local="clr-namespace:IntershipsZ7"
         xmlns:vm="clr-namespace:IntershipsZ7.ViewModels"
         mc:Ignorable="d"
-        Title="IntershipsZ8" Height="512.573" Width="525"
+        Title="IntershipsZ8" Height="501.165" Width="525"
         Closing="Window_Closing">
-        
+
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
     </Window.Resources>
 
-
-    <Grid Margin="0,0,0,1">
-        <ListView  x:Name="ImmoList" HorizontalAlignment="Left" Height="319" VerticalAlignment="Top" Width="120" ItemsSource="{Binding ImmoObsCol}" SelectedItem="{Binding SelectedImmo}"   >
+    <Grid>
+        <ListView  x:Name="ImmoList" HorizontalAlignment="Left" Height="319" VerticalAlignment="Top" Width="120" ItemsSource="{Binding ImmoObsCol}" SelectedItem="{Binding SelectedListView}"   >
             <ListView.View >
                 <GridView>
-                    <GridViewColumn Header="Name" Width="Auto"  DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>
+                    <GridViewColumn Header="Name" Width="Auto"  DisplayMemberBinding="{Binding Path=name}"></GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -41,7 +40,7 @@
                     <ComboBox ItemsSource="{Binding TypesList}" DisplayMemberPath="TypeName" SelectedValue="{Binding SelectedType}" SelectedValuePath="Id" Grid.Column="1" IsSynchronizedWithCurrentItem="True"/>
                 </Grid>
                 <Grid Grid.Row="1"
-                      DataContext="{Binding ElementName=ImmoList, Path=SelectedItem}" Grid.ColumnSpan="2">
+                      DataContext="{Binding SelectedImmo}" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" SharedSizeGroup="InfoLabels"/>
                         <ColumnDefinition Width="5*"/>
@@ -59,31 +58,31 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Content="Name ->"/>
-                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=Name}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="Name" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Name}" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged"/>
                     <Label Grid.Column="0" Grid.Row="1" Content="Footage ->"/>
-                    <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Footage}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="Footage" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Footage}" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged" />
                     <Label Grid.Column="0" Grid.Row="2" Content="Location ->"/>
-                    <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Location}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="Location" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Location}" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged"/>
                     <Label Grid.Column="0" Grid.Row=" 3" Content="Price ->"/>
-                    <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=Price}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="Price" Grid.Column="1" Grid.Row="3" Text="{Binding Path=Price}" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged"/>
                     <Label Grid.Column="0" Grid.Row=" 4" Content="Number of Rooms ->"/>
-                    <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=NumbRooms}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="NumbRooms" Grid.Column="1" Grid.Row="4" Text="{Binding Path=NumbRooms}" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged"/>
                     <Label Grid.Column="0" Grid.Row=" 5" Content="Apartmet type ->"/>
-                    <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=TypeApart}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="TypeApart" Grid.Column="1" Grid.Row="5" Text="{Binding Path=TypeApart}" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged"/>
                     <Label Grid.Column="0" Grid.Row=" 6" Content="Number of Floors ->"/>
-                    <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=NumbFloors}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="6" Text="{Binding Path=NumbFloors}" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged"/>
                     <Label Grid.Column="0" Grid.Row="7" Content="Plot size ->"/>
-                    <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=SizePlot}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="SizePlot" Grid.Column="1" Grid.Row="7" Text="{Binding Path=SizePlot}" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged"/>
                     <Label Grid.Column="0" Grid.Row="8" Content="Assigment ->"/>
-                    <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Path=Assigment}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="Assigment" Grid.Column="1" Grid.Row="8" Text="{Binding Path=Assigment}" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged"/>
                 </Grid>
 
             </Grid>
 
         </GroupBox>
-
         <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="10,338,0,0" VerticalAlignment="Top" Width="124" Height="37" IsEnabled="{Binding IsEnabledButton}"/>
-        <ProgressBar HorizontalAlignment="Right" Margin="10,338,10,0" VerticalAlignment="Top" Width="350" Height="37" Minimum="0" Maximum="{Binding MaxPB}" Value="{Binding ValuePB}" Visibility="{Binding IsPBVisible, Converter={StaticResource BoolToVisConverter}}"></ProgressBar>
-        <Button Content="Repeal" Command="{Binding RepealCommand}" HorizontalAlignment="Left" Margin="10,404,0,0" VerticalAlignment="Top" Width="124" Height="37"/>
+        <ProgressBar HorizontalAlignment="Right" Margin="10,338,10,0" VerticalAlignment="Top" Width="350" Height="37" IsIndeterminate="True" Visibility="{Binding IsPBVisible, Converter={StaticResource BoolToVisConverter}}"></ProgressBar>
+        <Button Content="Repeal" Command="{Binding RepealCommand}" HorizontalAlignment="Left" Margin="10,404,0,0" VerticalAlignment="Top" Width="124" Height="37" IsEnabled="{Binding IsChange}" />
+
     </Grid>
 </Window>
