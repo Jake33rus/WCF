@@ -96,7 +96,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IService_GetImmo_Input_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IService_GetListOfNames_Input_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -115,7 +115,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="WSHttpBinding_IService_GetImmo_output_policy">
+  <wsp:Policy wsu:Id="WSHttpBinding_IService_GetListOfNames_output_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
@@ -323,11 +323,11 @@
       <xsd:import schemaLocation="http://localhost:9080/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CommonLib.Models" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IService_GetImmo_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetImmo" />
+  <wsdl:message name="IService_GetListOfNames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListOfNames" />
   </wsdl:message>
-  <wsdl:message name="IService_GetImmo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetImmoResponse" />
+  <wsdl:message name="IService_GetListOfNames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListOfNamesResponse" />
   </wsdl:message>
   <wsdl:message name="IService_DBSave_InputMessage">
     <wsdl:part name="parameters" element="tns:DBSave" />
@@ -354,9 +354,9 @@
     <wsdl:part name="parameters" element="tns:CancelEditResponse" />
   </wsdl:message>
   <wsdl:portType name="IService">
-    <wsdl:operation name="GetImmo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetImmo" message="tns:IService_GetImmo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetImmoResponse" message="tns:IService_GetImmo_OutputMessage" />
+    <wsdl:operation name="GetListOfNames">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetListOfNames" message="tns:IService_GetListOfNames_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetListOfNamesResponse" message="tns:IService_GetListOfNames_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DBSave">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/DBSave" message="tns:IService_DBSave_InputMessage" />
@@ -378,14 +378,14 @@
   <wsdl:binding name="WSHttpBinding_IService" type="tns:IService">
     <wsp:PolicyReference URI="#WSHttpBinding_IService_policy" />
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetImmo">
-      <soap12:operation soapAction="http://tempuri.org/IService/GetImmo" style="document" />
+    <wsdl:operation name="GetListOfNames">
+      <soap12:operation soapAction="http://tempuri.org/IService/GetListOfNames" style="document" />
       <wsdl:input>
-        <wsp:PolicyReference URI="#WSHttpBinding_IService_GetImmo_Input_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IService_GetListOfNames_Input_policy" />
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
-        <wsp:PolicyReference URI="#WSHttpBinding_IService_GetImmo_output_policy" />
+        <wsp:PolicyReference URI="#WSHttpBinding_IService_GetListOfNames_output_policy" />
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
@@ -437,8 +437,8 @@
   <wsdl:binding name="NetTcpBinding_IService" type="tns:IService">
     <wsp:PolicyReference URI="#NetTcpBinding_IService_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="GetImmo">
-      <soap12:operation soapAction="http://tempuri.org/IService/GetImmo" style="document" />
+    <wsdl:operation name="GetListOfNames">
+      <soap12:operation soapAction="http://tempuri.org/IService/GetListOfNames" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -14,14 +14,14 @@ namespace MyService
     public interface IService
     {
         [OperationContract]
-        List<ImmoInfo> GetImmo();
+        ListSOR<ImmoInfo> GetListOfNames();
         [OperationContract]
         ServiceOperationResult DBSave();
         [OperationContract]
-        Immovables StartImmovablesEdit(int id);
+        EssenceSOR<Immovables> StartImmovablesEdit(int id);
         [OperationContract]
-        Immovables SetImmovablesFieldValue(string fieldName, object val);
+        EssenceSOR<Immovables> SetImmovablesFieldValue(string fieldName, object val);
         [OperationContract]
-        Immovables CancelEdit();
+        EssenceSOR<Immovables> CancelEdit();
     }
 }

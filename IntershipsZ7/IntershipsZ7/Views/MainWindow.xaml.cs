@@ -29,13 +29,8 @@ namespace IntershipsZ7.Views
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            immoVM.IsSaving();
+           immoVM.SaveChanges();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            TextBox textBox = (TextBox)sender;
-            immoVM.Changed(textBox.Name, textBox.Text);
-        }
     }
 }

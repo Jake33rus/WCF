@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:9080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MyService" />
-  <xs:import schemaLocation="http://localhost:9080/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CommonLib.Models" />
-  <xs:element name="GetImmo">
+  <xs:element name="GetListOfNames">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetImmoResponse">
+  <xs:element name="GetListOfNamesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MyService" minOccurs="0" name="GetImmoResult" nillable="true" type="q1:ArrayOfImmoInfo" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MyService" minOccurs="0" name="GetListOfNamesResult" nillable="true" type="q1:ListSOROfImmoInfoN5x5yyRL" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -36,7 +35,7 @@
   <xs:element name="StartImmovablesEditResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CommonLib.Models" minOccurs="0" name="StartImmovablesEditResult" nillable="true" type="q3:Immovables" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/MyService" minOccurs="0" name="StartImmovablesEditResult" nillable="true" type="q3:EssenceSOROfImmovablesz2cTNpOZ" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -51,7 +50,7 @@
   <xs:element name="SetImmovablesFieldValueResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CommonLib.Models" minOccurs="0" name="SetImmovablesFieldValueResult" nillable="true" type="q4:Immovables" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/MyService" minOccurs="0" name="SetImmovablesFieldValueResult" nillable="true" type="q4:EssenceSOROfImmovablesz2cTNpOZ" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -63,7 +62,7 @@
   <xs:element name="CancelEditResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CommonLib.Models" minOccurs="0" name="CancelEditResult" nillable="true" type="q5:Immovables" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/MyService" minOccurs="0" name="CancelEditResult" nillable="true" type="q5:EssenceSOROfImmovablesz2cTNpOZ" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

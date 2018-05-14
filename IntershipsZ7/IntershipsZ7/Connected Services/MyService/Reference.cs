@@ -15,6 +15,115 @@ namespace IntershipsZ7.MyService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ServiceOperationResult", Namespace="http://schemas.datacontract.org/2004/07/MyService")]
+    [System.SerializableAttribute()]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(IntershipsZ7.MyService.ListSOROfImmoInfoN5x5yyRL))]
+    public partial class ServiceOperationResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsSuccessField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsSuccess {
+            get {
+                return this.IsSuccessField;
+            }
+            set {
+                if ((this.IsSuccessField.Equals(value) != true)) {
+                    this.IsSuccessField = value;
+                    this.RaisePropertyChanged("IsSuccess");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EssenceSOROfImmovablesz2cTNpOZ", Namespace="http://schemas.datacontract.org/2004/07/MyService")]
+    [System.SerializableAttribute()]
+    public partial class EssenceSOROfImmovablesz2cTNpOZ : IntershipsZ7.MyService.ServiceOperationResult {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private IntershipsZ7.MyService.Immovables EssenceField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public IntershipsZ7.MyService.Immovables Essence {
+            get {
+                return this.EssenceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EssenceField, value) != true)) {
+                    this.EssenceField = value;
+                    this.RaisePropertyChanged("Essence");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ListSOROfImmoInfoN5x5yyRL", Namespace="http://schemas.datacontract.org/2004/07/MyService")]
+    [System.SerializableAttribute()]
+    public partial class ListSOROfImmoInfoN5x5yyRL : IntershipsZ7.MyService.ServiceOperationResult {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private IntershipsZ7.MyService.ImmoInfo[] ListField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public IntershipsZ7.MyService.ImmoInfo[] List {
+            get {
+                return this.ListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ListField, value) != true)) {
+                    this.ListField = value;
+                    this.RaisePropertyChanged("List");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ImmoInfo", Namespace="http://schemas.datacontract.org/2004/07/MyService")]
     [System.SerializableAttribute()]
     public partial struct ImmoInfo : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -66,67 +175,6 @@ namespace IntershipsZ7.MyService {
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServiceOperationResult", Namespace="http://schemas.datacontract.org/2004/07/MyService")]
-    [System.SerializableAttribute()]
-    public partial class ServiceOperationResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool IsSuccessField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MessageField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsSuccess {
-            get {
-                return this.IsSuccessField;
-            }
-            set {
-                if ((this.IsSuccessField.Equals(value) != true)) {
-                    this.IsSuccessField = value;
-                    this.RaisePropertyChanged("IsSuccess");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Message {
-            get {
-                return this.MessageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
-                    this.MessageField = value;
-                    this.RaisePropertyChanged("Message");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
@@ -359,11 +407,11 @@ namespace IntershipsZ7.MyService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.IService")]
     public interface IService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetImmo", ReplyAction="http://tempuri.org/IService/GetImmoResponse")]
-        IntershipsZ7.MyService.ImmoInfo[] GetImmo();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetListOfNames", ReplyAction="http://tempuri.org/IService/GetListOfNamesResponse")]
+        IntershipsZ7.MyService.ListSOROfImmoInfoN5x5yyRL GetListOfNames();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetImmo", ReplyAction="http://tempuri.org/IService/GetImmoResponse")]
-        System.Threading.Tasks.Task<IntershipsZ7.MyService.ImmoInfo[]> GetImmoAsync();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetListOfNames", ReplyAction="http://tempuri.org/IService/GetListOfNamesResponse")]
+        System.Threading.Tasks.Task<IntershipsZ7.MyService.ListSOROfImmoInfoN5x5yyRL> GetListOfNamesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/DBSave", ReplyAction="http://tempuri.org/IService/DBSaveResponse")]
         IntershipsZ7.MyService.ServiceOperationResult DBSave();
@@ -372,26 +420,28 @@ namespace IntershipsZ7.MyService {
         System.Threading.Tasks.Task<IntershipsZ7.MyService.ServiceOperationResult> DBSaveAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/StartImmovablesEdit", ReplyAction="http://tempuri.org/IService/StartImmovablesEditResponse")]
-        IntershipsZ7.MyService.Immovables StartImmovablesEdit(int id);
+        IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ StartImmovablesEdit(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/StartImmovablesEdit", ReplyAction="http://tempuri.org/IService/StartImmovablesEditResponse")]
-        System.Threading.Tasks.Task<IntershipsZ7.MyService.Immovables> StartImmovablesEditAsync(int id);
+        System.Threading.Tasks.Task<IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ> StartImmovablesEditAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetImmovablesFieldValue", ReplyAction="http://tempuri.org/IService/SetImmovablesFieldValueResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.Immovables))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.ListSOROfImmoInfoN5x5yyRL))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.ServiceOperationResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.ImmoInfo[]))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.ImmoInfo))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.ServiceOperationResult))]
-        IntershipsZ7.MyService.Immovables SetImmovablesFieldValue(string fieldName, object val);
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ))]
+        IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ SetImmovablesFieldValue(string fieldName, object val);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetImmovablesFieldValue", ReplyAction="http://tempuri.org/IService/SetImmovablesFieldValueResponse")]
-        System.Threading.Tasks.Task<IntershipsZ7.MyService.Immovables> SetImmovablesFieldValueAsync(string fieldName, object val);
+        System.Threading.Tasks.Task<IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ> SetImmovablesFieldValueAsync(string fieldName, object val);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/CancelEdit", ReplyAction="http://tempuri.org/IService/CancelEditResponse")]
-        IntershipsZ7.MyService.Immovables CancelEdit();
+        IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ CancelEdit();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/CancelEdit", ReplyAction="http://tempuri.org/IService/CancelEditResponse")]
-        System.Threading.Tasks.Task<IntershipsZ7.MyService.Immovables> CancelEditAsync();
+        System.Threading.Tasks.Task<IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ> CancelEditAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -421,12 +471,12 @@ namespace IntershipsZ7.MyService {
                 base(binding, remoteAddress) {
         }
         
-        public IntershipsZ7.MyService.ImmoInfo[] GetImmo() {
-            return base.Channel.GetImmo();
+        public IntershipsZ7.MyService.ListSOROfImmoInfoN5x5yyRL GetListOfNames() {
+            return base.Channel.GetListOfNames();
         }
         
-        public System.Threading.Tasks.Task<IntershipsZ7.MyService.ImmoInfo[]> GetImmoAsync() {
-            return base.Channel.GetImmoAsync();
+        public System.Threading.Tasks.Task<IntershipsZ7.MyService.ListSOROfImmoInfoN5x5yyRL> GetListOfNamesAsync() {
+            return base.Channel.GetListOfNamesAsync();
         }
         
         public IntershipsZ7.MyService.ServiceOperationResult DBSave() {
@@ -437,27 +487,27 @@ namespace IntershipsZ7.MyService {
             return base.Channel.DBSaveAsync();
         }
         
-        public IntershipsZ7.MyService.Immovables StartImmovablesEdit(int id) {
+        public IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ StartImmovablesEdit(int id) {
             return base.Channel.StartImmovablesEdit(id);
         }
         
-        public System.Threading.Tasks.Task<IntershipsZ7.MyService.Immovables> StartImmovablesEditAsync(int id) {
+        public System.Threading.Tasks.Task<IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ> StartImmovablesEditAsync(int id) {
             return base.Channel.StartImmovablesEditAsync(id);
         }
         
-        public IntershipsZ7.MyService.Immovables SetImmovablesFieldValue(string fieldName, object val) {
+        public IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ SetImmovablesFieldValue(string fieldName, object val) {
             return base.Channel.SetImmovablesFieldValue(fieldName, val);
         }
         
-        public System.Threading.Tasks.Task<IntershipsZ7.MyService.Immovables> SetImmovablesFieldValueAsync(string fieldName, object val) {
+        public System.Threading.Tasks.Task<IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ> SetImmovablesFieldValueAsync(string fieldName, object val) {
             return base.Channel.SetImmovablesFieldValueAsync(fieldName, val);
         }
         
-        public IntershipsZ7.MyService.Immovables CancelEdit() {
+        public IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ CancelEdit() {
             return base.Channel.CancelEdit();
         }
         
-        public System.Threading.Tasks.Task<IntershipsZ7.MyService.Immovables> CancelEditAsync() {
+        public System.Threading.Tasks.Task<IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ> CancelEditAsync() {
             return base.Channel.CancelEditAsync();
         }
     }

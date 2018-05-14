@@ -15,32 +15,43 @@ namespace MyService
     public class Service : IService
     {
         ImmoRepos ir = new ImmoRepos();
-        
         Immovables immoEdit;
-        ServiceOperationResult operationResult = new ServiceOperationResult();
-        public Immovables CancelEdit()
+
+        public EssenceSOR<Immovables> CancelEdit()
         {
-             var tempIr = new ImmoRepos();
-             var d = tempIr.db.Immovables.FirstOrDefault(x => x.Id == immoEdit.Id);
-             PropertyInfo[] myPropertyInfo = immoEdit.GetType().GetProperties();
-             PropertyInfo[] oldPropertyInfo = d.GetType().GetProperties();
-             foreach (PropertyInfo myProp in myPropertyInfo)
-             {
-                 string propName = myProp.Name;
-                 foreach (PropertyInfo oldProp in oldPropertyInfo)
-                 {
-                     string oldpropName = oldProp.Name;
-                     if (propName == oldpropName)
-                     {
-                         myProp.SetValue(immoEdit, oldProp.GetValue(d));
-                     }
-                 }
-             }
-            return immoEdit;
+             var operationResult = new EssenceSOR<Immovables>();
+            try
+            {
+                var tempIr = new ImmoRepos();
+                var d = tempIr.db.Immovables.FirstOrDefault(x => x.Id == immoEdit.Id);
+                PropertyInfo[] myPropertyInfo = immoEdit.GetType().GetProperties();
+                PropertyInfo[] oldPropertyInfo = d.GetType().GetProperties();
+                foreach (PropertyInfo myProp in myPropertyInfo)
+                {
+                    string propName = myProp.Name;
+                    foreach (PropertyInfo oldProp in oldPropertyInfo)
+                    {
+                        string oldpropName = oldProp.Name;
+                        if (propName == oldpropName)
+                        {
+                            myProp.SetValue(immoEdit, oldProp.GetValue(d));
+                        }
+                    }
+                }
+                operationResult.Essence = immoEdit;
+                return operationResult;
+            }
+            catch(Exception e)
+            {
+                operationResult.Message = e.Message;
+                operationResult.IsSuccess = true;
+            }
+            return operationResult;
         }
 
         public ServiceOperationResult DBSave()
         {
+            var operationResult = new ServiceOperationResult();
             try
             {
                 ir.Update(immoEdit.Id, immoEdit);
@@ -53,44 +64,67 @@ namespace MyService
             return operationResult;
         }
 
-        public List<ImmoInfo> GetImmo()
+        public ListSOR<ImmoInfo> GetListOfNames()
         {
-            var list = new List<ImmoInfo>();
-            foreach(var immo in ir.Load())
-            {
-                list.Add(new ImmoInfo(immo.Id, immo.Name));
-            }
-            return list;
-        }
-
-        public Immovables SetImmovablesFieldValue(string fieldName, object val)
-        {
-            PropertyInfo[] myPropertyInfo = immoEdit.GetType().GetProperties();
-            var prop = myPropertyInfo.FirstOrDefault(myProp => myProp.Name == fieldName);
-            var t = prop.PropertyType;
-            if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
-            {
-                if (val == null)
-                {
-                    return null;
-                }
-                t = Nullable.GetUnderlyingType(t);
-            }
+            var operationResult = new ListSOR<ImmoInfo>();
             try
             {
+                var list = new List<ImmoInfo>();
+                foreach (var immo in ir.Load())
+                {
+                    list.Add(new ImmoInfo(immo.Id, immo.Name));
+                }
+                operationResult.List = list;
+            }
+            catch (Exception e)
+            {
+                operationResult.Message = e.Message;
+                operationResult.IsSuccess = true;
+            }
+            return operationResult;
+        }
+        public EssenceSOR<Immovables> SetImmovablesFieldValue(string fieldName, object val)
+        {
+            var operationResult = new EssenceSOR<Immovables>();
+            try
+            { 
+                PropertyInfo[] myPropertyInfo = immoEdit.GetType().GetProperties();
+                var prop = myPropertyInfo.FirstOrDefault(myProp => myProp.Name == fieldName);
+                var t = prop.PropertyType;
+                if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
+                {
+                    if (val == null)
+                    {
+                        operationResult.Message = "Поле нельзя оставить пустым";
+                        operationResult.IsSuccess = true;
+                        return operationResult;
+                    }
+                    t = Nullable.GetUnderlyingType(t);
+                }
                 prop.SetValue(immoEdit, Convert.ChangeType(val, t));
+                operationResult.Essence = immoEdit;
             }
             catch(Exception e) 
-            {
-                throw new FaultException("Введен не корректный символ, для данного поля\n");
+            {        
+                throw new FaultException($"{e.Message}");
             }
-            return immoEdit;
+            return operationResult;
         }
 
-        public Immovables StartImmovablesEdit(int id)
+        public EssenceSOR<Immovables> StartImmovablesEdit(int id)
         {
-            immoEdit = ir.LoadByID(id);
-            return immoEdit;
+            var operationResult = new EssenceSOR<Immovables>();
+            try
+            {
+                immoEdit = ir.LoadByID(id);
+                operationResult.Essence = immoEdit;
+            }
+            catch(Exception e)
+            {
+                operationResult.Message = e.Message;
+                operationResult.IsSuccess = true;
+            }
+            return operationResult;
         }
     }
 }

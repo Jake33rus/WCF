@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IntershipsZ7.ViewModels
 {
-    class ChangeNotifier : INotifyPropertyChanged
+    public class ChangeNotifier : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

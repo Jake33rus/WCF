@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IntershipsZ7.ViewModels
 {
-    class TypesViewModel:ChangeNotifier
+    public class TypesViewModel:ChangeNotifier
     {
         private int id;
         private string typeName;
