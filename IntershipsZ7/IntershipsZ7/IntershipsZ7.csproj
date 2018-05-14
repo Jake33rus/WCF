@@ -100,7 +100,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ChangeNotifier.cs" />
-    <Compile Include="ViewModels\ClientDataContext.cs" />
     <Compile Include="ViewModels\ImmoEditorViewModel.cs" />
     <Compile Include="ViewModels\ImmovablesViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
