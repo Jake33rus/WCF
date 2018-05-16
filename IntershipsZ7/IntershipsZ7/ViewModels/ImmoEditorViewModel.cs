@@ -8,10 +8,11 @@ using System.Windows;
 
 namespace IntershipsZ7.ViewModels
 {
-    public class ImmoEditorViewModel : ImmovablesViewModel
+    public class ImmoEditorViewModel:ChangeNotifier
     {
         bool isProgrammingChange = false;
-        public ImmoEditorViewModel(Immovables immo)
+        ImmovablesViewModel immoVM;
+        public ImmoEditorViewModel(Immovables immo, ServiceClient client, ImmovablesViewModel obj)
         {
             isProgrammingChange = true;
             GetTypeList();
@@ -26,8 +27,10 @@ namespace IntershipsZ7.ViewModels
             PlotSize = immo.SizePlot;
             Assigment = immo.Assigment;
             isProgrammingChange = false;
+            this.client = client;
+            immoVM = obj;
         }
-
+        ServiceClient client;
         public ImmoEditorViewModel()
         {
         }
@@ -169,8 +172,9 @@ namespace IntershipsZ7.ViewModels
                 return;
             try
             {
-                SelectedImmo = client.SetImmovablesFieldValue(fieldName, val).Essence;
-                IsChange = true;
+                client.SetImmovablesFieldValue(fieldName, val);
+                 //SelectedImmo = client.SetImmovablesFieldValue(fieldName, val).Essense; 
+                 immoVM.IsChange = true;
             }
             catch (Exception exception)
             {

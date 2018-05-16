@@ -16,7 +16,7 @@ namespace IntershipsZ7.ViewModels
 {
     public class ImmovablesViewModel:ChangeNotifier
     {
-        bool isChange = false;
+        static bool isChange = false;
         public bool IsChange { get { return isChange; }
             set
             {
@@ -64,7 +64,7 @@ namespace IntershipsZ7.ViewModels
             set
             {
                 selectedImmo = value;
-                ImmoEditorVM = new ImmoEditorViewModel(SelectedImmo);
+                ImmoEditorVM = new ImmoEditorViewModel(SelectedImmo, client, this);
                 OnPropertyChanged("SelectedType");
                 OnPropertyChanged();
             }
@@ -75,7 +75,7 @@ namespace IntershipsZ7.ViewModels
             get { return selectedListView; }
             set
             {
-                SaveChanges();
+                IsSaveChanges();
                 selectedListView = value;
                 var info = client.StartImmovablesEdit(selectedListView.id);
                 if (info.IsSuccess)
@@ -148,29 +148,29 @@ namespace IntershipsZ7.ViewModels
                     }));
             }
         }
-        public void SaveChanges()
+        public void IsSaveChanges()
         {
-            if (isChange)
-            {
-                string msg = "Сохранить изменения?";
-                MessageBoxResult result = MessageBox.Show(msg, "MyApp", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                if (result == MessageBoxResult.Yes)
+            if (!isChange)
+                return;
+           string msg = "Сохранить изменения?";
+           MessageBoxResult result = MessageBox.Show(msg, "MyApp", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+           if (result == MessageBoxResult.Yes)
                 {
                     SaveChanged();
                 }
-                if (result == MessageBoxResult.No)
-                {
-                    var info = client.CancelEdit();
-                    if (!info.IsSuccess)
-                    {
+           if (result == MessageBoxResult.No)
+                 {
+                     var info = client.CancelEdit();
+                     if (!info.IsSuccess)
+                     {
                         SelectedImmo = info.Essence;
                         IsChange = false;
                         MessageBox.Show("Изменения отменены!", "MyApp");
-                    }
-                    else { MessageBox.Show("Произошла ошибка! -> {0}", info.Message); }
-                    IsChange = false;
-                }
-            }
+                     }
+                     else { MessageBox.Show("Произошла ошибка! -> {0}", info.Message); }
+                     IsChange = false;
+                  }
+            
         }
         public ImmovablesViewModel()
         {
