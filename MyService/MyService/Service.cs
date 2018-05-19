@@ -16,20 +16,29 @@ namespace MyService
     {
         ImmoRepos ir = new ImmoRepos();
         Immovables immoEdit;
+        PropertyInfo[] immoPropertyInfo;
+        public Service()
+        {
+            GetPropInfo();
+        }
+
+        void GetPropInfo()
+        {
+            immoEdit = new Immovables();
+            immoPropertyInfo = immoEdit.GetType().GetProperties();
+        }
 
         public EssenceSOR<Immovables> CancelEdit()
         {
-             var operationResult = new EssenceSOR<Immovables>();
+            var operationResult = new EssenceSOR<Immovables>();
             try
             {
                 var tempIr = new ImmoRepos();
                 var d = tempIr.db.Immovables.FirstOrDefault(x => x.Id == immoEdit.Id);
-                PropertyInfo[] myPropertyInfo = immoEdit.GetType().GetProperties();
-                PropertyInfo[] oldPropertyInfo = d.GetType().GetProperties();
-                foreach (PropertyInfo myProp in myPropertyInfo)
+                foreach (PropertyInfo myProp in immoPropertyInfo)
                 {
                     string propName = myProp.Name;
-                    foreach (PropertyInfo oldProp in oldPropertyInfo)
+                    foreach (PropertyInfo oldProp in immoPropertyInfo)
                     {
                         string oldpropName = oldProp.Name;
                         if (propName == oldpropName)
@@ -88,8 +97,7 @@ namespace MyService
             var operationResult = new EssenceSOR<Immovables>();
             try
             { 
-                PropertyInfo[] myPropertyInfo = immoEdit.GetType().GetProperties();
-                var prop = myPropertyInfo.FirstOrDefault(myProp => myProp.Name == fieldName);
+                var prop = immoPropertyInfo.FirstOrDefault(myProp => myProp.Name == fieldName);
                 var t = prop.PropertyType;
                 if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
                 {

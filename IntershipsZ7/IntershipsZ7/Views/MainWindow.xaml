@@ -12,7 +12,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
     </Window.Resources>
     <Grid>
-        <ListView  x:Name="ImmoList" HorizontalAlignment="Left" Height="319" VerticalAlignment="Top" Width="120" ItemsSource="{Binding ImmoObsCol}" SelectedItem="{Binding SelectedListView}"   >
+        <ListView  x:Name="ImmoList" HorizontalAlignment="Left" Height="319" VerticalAlignment="Top" Width="120" ItemsSource="{Binding ImmoName}" SelectedItem="{Binding SelectedListView}"   >
             <ListView.View >
                 <GridView>
                     <GridViewColumn Header="Name" Width="Auto"  DisplayMemberBinding="{Binding Path=name}"></GridViewColumn>
@@ -47,25 +47,25 @@
                     <Label Grid.Column="0" Grid.Row="2" Content="Footage ->"/>
                     <TextBox Name="Footage" Grid.Column="1" Grid.Row="2" Text="{Binding Footage, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="3" Content="Location ->"/>
-                    <TextBox Name="Location" Grid.Column="1" Grid.Row="3" Text="{Binding Location}" Grid.ColumnSpan="2" />
+                    <TextBox Name="Location" Grid.Column="1" Grid.Row="3" Text="{Binding Location, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="4" Content="Price ->"/>
-                    <TextBox Name="Price" Grid.Column="1" Grid.Row="4" Text="{Binding Price}" Grid.ColumnSpan="2" />
+                    <TextBox Name="Price" Grid.Column="1" Grid.Row="4" Text="{Binding Price, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="5" Content="Number of Rooms ->"/>
-                    <TextBox Name="NumbRooms" Grid.Column="1" Grid.Row="5" Text="{Binding NumbRooms}" Grid.ColumnSpan="2" />
+                    <TextBox Name="NumbRooms" Grid.Column="1" Grid.Row="5" Text="{Binding NumberOfRooms, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="6" Content="Apartmet type ->"/>
-                    <TextBox Name="TypeApart" Grid.Column="1" Grid.Row="6" Text="{Binding TypeApart}" Grid.ColumnSpan="2" />
+                    <TextBox Name="TypeApart" Grid.Column="1" Grid.Row="6" Text="{Binding ApartmentType, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="7" Content="Number of Floors ->"/>
-                    <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="7" Text="{Binding NumbFloors}" Grid.ColumnSpan="2" />
+                    <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="7" Text="{Binding NumbOfFloors, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="8" Content="Plot size ->"/>
-                    <TextBox Name="SizePlot" Grid.Column="1" Grid.Row="8" Text="{Binding SizePlot}" Grid.ColumnSpan="2" />
+                    <TextBox Name="SizePlot" Grid.Column="1" Grid.Row="8" Text="{Binding PlotSize, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="9" Content="Assigment ->"/>
-                    <TextBox Name="Assigment" Grid.Column="1" Grid.Row="9" Text="{Binding Assigment}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="Assigment" Grid.Column="1" Grid.Row="9" Text="{Binding Assigment, Mode=TwoWay}" Grid.ColumnSpan="2"/>
                 </Grid>
 
             </Grid>
 
         </GroupBox>
-        <Grid>
+        <Grid DataContext="{Binding ImmoEditorVM}">
             <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="10,338,0,0" VerticalAlignment="Top" Width="124" Height="37" IsEnabled="{Binding IsEnabledButton}"/>
             <ProgressBar HorizontalAlignment="Right" Margin="10,338,10,0" VerticalAlignment="Top" Width="350" Height="37" IsIndeterminate="True" Visibility="{Binding IsPBVisible, Converter={StaticResource BoolToVisConverter}}"></ProgressBar>
             <Button Content="Repeal" Command="{Binding RepealCommand}" HorizontalAlignment="Left" Margin="10,404,0,0" VerticalAlignment="Top" Width="124" Height="37" IsEnabled="{Binding IsChange}" />

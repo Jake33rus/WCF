@@ -12,29 +12,174 @@ namespace IntershipsZ7.ViewModels
     /// Вложенная модель отвечающая за выбранную сущность и ее редактирование 
     /// </summary>
     public class ImmoEditorViewModel:ChangeNotifier
-    {
+    {  
+        /// <summary>
+        /// проверка были ли изменены поля сущности
+        /// </summary>
+        static bool isChange = false;
+        public bool IsChange
+        {
+            get { return isChange; }
+            set
+            {
+                isChange = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// команда вызываемая при нажатии на кнопку Save
+        /// </summary>
+        private RelayCommand saveCommand;
+        public RelayCommand SaveCommand
+        {
+            get
+            {
+                return saveCommand ??
+                    (saveCommand = new RelayCommand(obj =>
+                    {
+                        SaveChanged();
+                    }));
+            }
+        }
+        /// <summary>
+        /// откатывает изменения в сущности
+        /// </summary>
+        private RelayCommand repealCommand;
+        public RelayCommand RepealCommand
+        {
+            get
+            {
+                return repealCommand ??
+                    (repealCommand = new RelayCommand(obj =>
+                    {
+                        var info = client.CancelEdit();
+                        if (!info.IsSuccess)
+                        {
+                            ChangeableImmo = info.Essence;
+                            IsChange = false;
+                            MessageBox.Show("Изменения отменены!", "MyApp");
+                        }
+                        else { MessageBox.Show("Произошла ошибка! -> {0}", info.Message); }
+                    }));
+            }
+        }
+        /// <summary>
+        /// проверяет были ли изменения в сущности находящейся на редактировании
+        /// </summary>
+        public void IsSaveChanges()
+        {
+            if (!isChange)
+                return;
+            string msg = "Сохранить изменения?";
+            MessageBoxResult result = MessageBox.Show(msg, "MyApp", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Yes)
+            {
+                SaveChanged();
+            }
+            if (result == MessageBoxResult.No)
+            {
+                var info = client.CancelEdit();
+                if (!info.IsSuccess)
+                {
+                    ChangeableImmo = info.Essence;
+                    IsChange = false;
+                    MessageBox.Show("Изменения отменены!", "MyApp");
+                }
+                else { MessageBox.Show("Произошла ошибка! -> {0}", info.Message); }
+            }
+
+        }
+        /// <summary>
+        /// изменение доступности для нажатия кнопки "Repeal"
+        /// </summary>
+        bool isEnabledButton = true;
+        public bool IsEnabledButton
+        {
+            get { return isEnabledButton; }
+            set
+            {
+                isEnabledButton = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// видимость прогресс бара
+        /// </summary>
+        bool isPBVisible;
+        public bool IsPBVisible
+        {
+            get { return isPBVisible; }
+            set
+            {
+                isPBVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Сохраняет изменения в сущности
+        /// </summary>
+        private async void SaveChanged()
+        {
+            string message = null;
+            try
+            {
+                var task = Task.Factory.StartNew(() =>
+                {
+                    IsPBVisible = true;
+                    var info = client.DBSave();
+                    message = info.IsSuccess ? info.Message : "Изменения сохранены";
+                });
+                await task;
+                IsChange = false;
+            }
+            catch (Exception ex)
+            {
+                message = string.Format("Произошла ошибка:{0}", ex.Message);
+
+            }
+            finally
+            {
+                IsEnabledButton = true;
+                IsPBVisible = false;
+                MessageBox.Show(message, "MyApp");
+            }
+        }
+        private Immovables changeableImmo;
+        public Immovables ChangeableImmo
+        {
+            get { return changeableImmo; }
+            set
+            {
+                isProgrammingChange = true;
+                changeableImmo = value;
+                FieldInit();
+                OnPropertyChanged();
+                isProgrammingChange = false;
+            }
+        }
+        void FieldInit()
+        {
+            SelectedType = changeableImmo.Type;
+            Name = changeableImmo.Name;
+            Footage = changeableImmo.Footage;
+            Location = changeableImmo.Location;
+            Price = changeableImmo.Price;
+            NumberOfRooms = changeableImmo.NumbRooms;
+            NumberOfFloors = changeableImmo.NumbFloors;
+            ApartmentType = changeableImmo.TypeApart;
+            PlotSize = changeableImmo.SizePlot;
+            Assigment = changeableImmo.Assigment;
+        }
         /// <summary>
         /// проверка на программное заполнения значений полей 
         /// </summary>
         bool isProgrammingChange = false;
-        ImmovablesViewModel immoVM;
-        public ImmoEditorViewModel(Immovables immo, ServiceClient client, ImmovablesViewModel obj)
-        {
-            isProgrammingChange = true;
-            GetTypeList();
-            SelectedType = immo.Type;
-            Name = immo.Name;
-            Footage = immo.Footage;
-            Location = immo.Location;
-            Price = immo.Price;
-            NumberOfRooms = immo.NumbRooms;
-            NumberOfFloors = immo.NumbFloors;
-            ApartmentType = immo.TypeApart;
-            PlotSize = immo.SizePlot;
-            Assigment = immo.Assigment;
-            isProgrammingChange = false;
+        public ImmoEditorViewModel(Immovables immo, ServiceClient client)
+        {   
             this.client = client;
-            immoVM = obj;
+            IsSaveChanges();
+            ChangeableImmo = immo;
+            GetTypeList();
         }
         ServiceClient client;
         public ImmoEditorViewModel()
@@ -187,8 +332,17 @@ namespace IntershipsZ7.ViewModels
                 return;
             try
             {
-                client.SetImmovablesFieldValue(fieldName, val);
-                immoVM.IsChange = true;
+                var info = client.SetImmovablesFieldValue(fieldName, val);
+                if (info.IsSuccess)
+                {
+                    MessageBox.Show("Произошла ошибка -> {0}", info.Message);
+                    IsChange = false;
+                }
+                else
+                {
+                    IsChange = true;
+                }
+                ChangeableImmo = info.Essence;
             }
             catch (Exception exception)
             {
