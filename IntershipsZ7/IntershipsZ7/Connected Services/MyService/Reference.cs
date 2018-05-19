@@ -85,6 +85,9 @@ namespace IntershipsZ7.MyService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private IntershipsZ7.MyService.Immovables EssenceField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Reflection.PropertyInfo[] PropInfoField;
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public IntershipsZ7.MyService.Immovables Essence {
             get {
@@ -94,6 +97,19 @@ namespace IntershipsZ7.MyService {
                 if ((object.ReferenceEquals(this.EssenceField, value) != true)) {
                     this.EssenceField = value;
                     this.RaisePropertyChanged("Essence");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Reflection.PropertyInfo[] PropInfo {
+            get {
+                return this.PropInfoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PropInfoField, value) != true)) {
+                    this.PropInfoField = value;
+                    this.RaisePropertyChanged("PropInfo");
                 }
             }
         }
@@ -427,6 +443,9 @@ namespace IntershipsZ7.MyService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetImmovablesFieldValue", ReplyAction="http://tempuri.org/IService/SetImmovablesFieldValueResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.Immovables))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Reflection.PropertyInfo[]))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Reflection.PropertyInfo))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Reflection.MemberInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.ListSOROfImmoInfoN5x5yyRL))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.ServiceOperationResult))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(IntershipsZ7.MyService.ImmoInfo[]))]

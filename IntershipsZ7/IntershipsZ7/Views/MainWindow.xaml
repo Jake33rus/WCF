@@ -51,13 +51,13 @@
                     <Label Grid.Column="0" Grid.Row="4" Content="Price ->"/>
                     <TextBox Name="Price" Grid.Column="1" Grid.Row="4" Text="{Binding Price, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="5" Content="Number of Rooms ->"/>
-                    <TextBox Name="NumbRooms" Grid.Column="1" Grid.Row="5" Text="{Binding NumberOfRooms, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox Name="NumbRooms" Grid.Column="1" Grid.Row="5" Text="{Binding NumbRooms, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="6" Content="Apartmet type ->"/>
-                    <TextBox Name="TypeApart" Grid.Column="1" Grid.Row="6" Text="{Binding ApartmentType, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox Name="TypeApart" Grid.Column="1" Grid.Row="6" Text="{Binding TypeApart, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="7" Content="Number of Floors ->"/>
-                    <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="7" Text="{Binding NumbOfFloors, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="7" Text="{Binding NumbFloors, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="8" Content="Plot size ->"/>
-                    <TextBox Name="SizePlot" Grid.Column="1" Grid.Row="8" Text="{Binding PlotSize, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox Name="SizePlot" Grid.Column="1" Grid.Row="8" Text="{Binding SizePlot, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="9" Content="Assigment ->"/>
                     <TextBox Name="Assigment" Grid.Column="1" Grid.Row="9" Text="{Binding Assigment, Mode=TwoWay}" Grid.ColumnSpan="2"/>
                 </Grid>

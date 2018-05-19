@@ -2,6 +2,7 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MyService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MyService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:9080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import schemaLocation="http://localhost:9080/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CommonLib.Models" />
+  <xs:import schemaLocation="http://localhost:9080/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Reflection" />
   <xs:complexType name="ListSOROfImmoInfoN5x5yyRL">
     <xs:annotation>
       <xs:appinfo>
@@ -56,6 +57,7 @@
       <xs:extension base="tns:ServiceOperationResult">
         <xs:sequence>
           <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CommonLib.Models" minOccurs="0" name="Essence" nillable="true" type="q1:Immovables" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System.Reflection" minOccurs="0" name="PropInfo" nillable="true" type="q2:ArrayOfPropertyInfo" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

@@ -321,6 +321,7 @@
       <xsd:import schemaLocation="http://localhost:9080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:9080/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MyService" />
       <xsd:import schemaLocation="http://localhost:9080/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CommonLib.Models" />
+      <xsd:import schemaLocation="http://localhost:9080/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Reflection" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IService_GetListOfNames_InputMessage">

@@ -24,8 +24,8 @@ namespace MyService
 
         void GetPropInfo()
         {
-            immoEdit = new Immovables();
-            immoPropertyInfo = immoEdit.GetType().GetProperties();
+            
+            immoPropertyInfo = typeof(Immovables).GetProperties();
         }
 
         public EssenceSOR<Immovables> CancelEdit()

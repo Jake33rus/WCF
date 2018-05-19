@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -149,43 +151,47 @@ namespace IntershipsZ7.ViewModels
         {
             get { return changeableImmo; }
             set
-            {
-                isProgrammingChange = true;
+            {         
                 changeableImmo = value;
                 FieldInit();
                 OnPropertyChanged();
-                isProgrammingChange = false;
             }
         }
         void FieldInit()
         {
-            SelectedType = changeableImmo.Type;
-            Name = changeableImmo.Name;
-            Footage = changeableImmo.Footage;
-            Location = changeableImmo.Location;
-            Price = changeableImmo.Price;
-            NumberOfRooms = changeableImmo.NumbRooms;
-            NumberOfFloors = changeableImmo.NumbFloors;
-            ApartmentType = changeableImmo.TypeApart;
-            PlotSize = changeableImmo.SizePlot;
-            Assigment = changeableImmo.Assigment;
+            try
+            {
+                isProgrammingChange = true;
+                var immoEditorProp = typeof(ImmoEditorViewModel).GetProperties();
+                var immoProperty = typeof(Immovables).GetProperties();
+                foreach(var immoEditProp in immoEditorProp)
+                {
+                    string propName = immoEditProp.Name;
+                    foreach (var immoProp in immoProperty)
+                    {
+                        string imPropName = immoProp.Name;
+                        if (propName == imPropName)
+                        {
+                            immoEditProp.SetValue(this, immoProp.GetValue(changeableImmo));
+                        }
+                    }
+                }
+                SelectedType = ChangeableImmo.Type;
+            }
+            finally { isProgrammingChange = false; }
         }
         /// <summary>
         /// проверка на программное заполнения значений полей 
         /// </summary>
         bool isProgrammingChange = false;
-        public ImmoEditorViewModel(Immovables immo, ServiceClient client)
+        public ImmoEditorViewModel(Immovables immo, ServiceClient client, PropertyInfo[] property )
         {   
+
             this.client = client;
-            IsSaveChanges();
             ChangeableImmo = immo;
             GetTypeList();
         }
         ServiceClient client;
-        public ImmoEditorViewModel()
-        {
-        }
-
         /// <summary>
         /// List хранящий соотношение значения id и типов сущностей, служит для заполнения Combobox
         /// </summary>
@@ -197,8 +203,7 @@ namespace IntershipsZ7.ViewModels
             get { return name; }
             set
             {
-                name = value;
-                Changed("Name", name);
+                if (Changed(name)) name = value;
                 OnPropertyChanged();
             }
         }
@@ -209,8 +214,8 @@ namespace IntershipsZ7.ViewModels
             get { return footage; }
             set
             {
-                footage = value;
-                Changed("Footage", footage);
+               
+                if(Changed(footage)) footage = value;
                 OnPropertyChanged();
             }
         }
@@ -221,8 +226,7 @@ namespace IntershipsZ7.ViewModels
             get { return location; }
             set
             {
-                location = value;
-                Changed("Location", location);
+                if(Changed(location)) location = value; ;
                 OnPropertyChanged();
             }
         }
@@ -233,56 +237,51 @@ namespace IntershipsZ7.ViewModels
             get { return price; }
             set
             {
-                price = value;
-                Changed("Price", price);
+                if(Changed(price)) price = value;
                 OnPropertyChanged();
             }
         }
 
-        private int? numberOfRooms;
-        public int? NumberOfRooms
+        private int? numbRooms;
+        public int? NumbRooms
         {
-            get { return numberOfRooms; }
+            get { return numbRooms; }
             set
             {
-                numberOfRooms = value;
-                Changed("NumbRooms", numberOfRooms);
+                if(Changed(numbRooms)) numbRooms = value;
                 OnPropertyChanged();
             }
         }
     
-        private string apartmentType;
-        public string ApartmentType
+        private string typeApart;
+        public string TypeApart
         {
-            get { return apartmentType; }
+            get { return typeApart; }
             set
             {
-                apartmentType = value;
-                Changed("TypeApart", apartmentType);
+                if(Changed(typeApart)) typeApart = value;
                 OnPropertyChanged();
             }
         }
 
-        private int? numberOfFloors;
-        public int? NumberOfFloors
+        private int? numbFloors;
+        public int? NumbFloors
         {
-            get { return numberOfFloors; }
+            get { return numbFloors; }
             set
             {
-                numberOfFloors = value;
-                Changed("NumbFloors", numberOfFloors);
+                if (Changed(numbFloors))numbFloors = value;
                 OnPropertyChanged();
             }
         }
 
-        private double? plotSize;
-        public double? PlotSize
+        private double? sizePlot;
+        public double? SizePlot
         {
-            get { return plotSize; }
+            get { return sizePlot; }
             set
             {
-                plotSize = value;
-                Changed("SizePlot", plotSize);
+                if(Changed(sizePlot))sizePlot = value;
                 OnPropertyChanged();
             }
         }
@@ -293,8 +292,7 @@ namespace IntershipsZ7.ViewModels
             get { return assigment; }
             set
             {
-                assigment = value;
-                Changed("Assigment", assigment);
+                if(Changed(assigment)) assigment = value;
                 OnPropertyChanged();
             }
         }
@@ -308,8 +306,7 @@ namespace IntershipsZ7.ViewModels
             get { return selectedType; }
             set
             {
-                selectedType = value;
-                Changed("Type", selectedType);
+                if (Changed(selectedType, "Type")) selectedType = value;
                 OnPropertyChanged();
             }
         }
@@ -326,10 +323,10 @@ namespace IntershipsZ7.ViewModels
             TypesList.Add(new RatioTypes() { Id = 5, TypeName = "LivingSpace" });
         }
 
-        public void Changed(string fieldName, object val)
+        public bool Changed(object val, [CallerMemberName] string fieldName = "")
         {
             if (isProgrammingChange)
-                return;
+                return true;
             try
             {
                 var info = client.SetImmovablesFieldValue(fieldName, val);
@@ -337,16 +334,18 @@ namespace IntershipsZ7.ViewModels
                 {
                     MessageBox.Show("Произошла ошибка -> {0}", info.Message);
                     IsChange = false;
+                    return false;
                 }
                 else
                 {
                     IsChange = true;
+                    return true;
                 }
-                ChangeableImmo = info.Essence;
             }
             catch (Exception exception)
             {
                 MessageBox.Show($"Ошибка - {exception.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
 
 

@@ -148,6 +148,9 @@
     <None Include="Connected Services\MyService\item3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\MyService\item4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\MyService\Service.wsdl" />
     <None Include="Connected Services\RemoteService\Saver.wsdl" />
     <None Include="Connected Services\RemoteService\Saver.xsd">
