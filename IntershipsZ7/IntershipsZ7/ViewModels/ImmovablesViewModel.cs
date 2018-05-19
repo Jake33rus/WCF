@@ -17,7 +17,7 @@ namespace IntershipsZ7.ViewModels
     public class ImmovablesViewModel:ChangeNotifier
     {
         static bool isChange = false;
-        public bool IsChange { get { return isChange; }
+        public bool IsChange { get { return isChange; }//проверка были ли изменены поля сущности
             set
             {
                 isChange = value;
@@ -25,7 +25,7 @@ namespace IntershipsZ7.ViewModels
             }
         }
         private ImmoEditorViewModel immoEditorVM;
-        public ImmoEditorViewModel ImmoEditorVM
+        public ImmoEditorViewModel ImmoEditorVM 
         {
             get { return immoEditorVM; }
             set
@@ -35,7 +35,7 @@ namespace IntershipsZ7.ViewModels
             }
         }
         bool isEnabledButton = true;
-        public bool IsEnabledButton
+        public bool IsEnabledButton // изменение доступности для нажатия кнопки "Repeal"
         {
             get { return isEnabledButton; }
             set
@@ -45,7 +45,7 @@ namespace IntershipsZ7.ViewModels
             }
         }
         bool isPBVisible;
-        public bool IsPBVisible
+        public bool IsPBVisible // видимость прогресс бара
         {
             get { return isPBVisible; }
             set
@@ -56,9 +56,9 @@ namespace IntershipsZ7.ViewModels
         }
         
         public ServiceClient client;
-        public ObservableCollection<ImmoInfo> ImmoObsCol { get; set; }
+        public ObservableCollection<ImmoInfo> ImmoObsCol { get; set; }// хранит объекты которые будут показаны в ListView
         private Immovables selectedImmo;
-        public Immovables SelectedImmo
+        public Immovables SelectedImmo // хранит выбранную сущность, которую вернул сервер 
         {
             get { return selectedImmo; }
             set
@@ -66,11 +66,10 @@ namespace IntershipsZ7.ViewModels
                 selectedImmo = value;
                 ImmoEditorVM = new ImmoEditorViewModel(SelectedImmo, client, this);
                 OnPropertyChanged("SelectedType");
-                OnPropertyChanged();
             }
         }
         private ImmoInfo selectedListView;
-        public ImmoInfo SelectedListView
+        public ImmoInfo SelectedListView // хранит значение свойства SelectedItem объекта ListView 
         {
             get { return selectedListView; }
             set
@@ -85,13 +84,14 @@ namespace IntershipsZ7.ViewModels
                 else
                 {
                     SelectedImmo = info.Essence;
+
                 }
                     
             }
         }
 
         private RelayCommand saveCommand;
-        public RelayCommand SaveCommand
+        public RelayCommand SaveCommand //команда вызываемая при нажатии на кнопку Save
         {
             get
             {
@@ -102,7 +102,7 @@ namespace IntershipsZ7.ViewModels
                     }));
             }
         }
-        private async void  SaveChanged()
+        private async void  SaveChanged() // Сохраняет изменения в сущности
         {
             string message = null;
             try
@@ -130,7 +130,7 @@ namespace IntershipsZ7.ViewModels
             
         }
         private RelayCommand repealCommand;
-        public RelayCommand RepealCommand
+        public RelayCommand RepealCommand // откатывает изменения в сущности
         {
             get
             {
@@ -148,7 +148,7 @@ namespace IntershipsZ7.ViewModels
                     }));
             }
         }
-        public void IsSaveChanges()
+        public void IsSaveChanges() //проверяет были ли изменения в сущности находящейся на редактировании
         {
             if (!isChange)
                 return;

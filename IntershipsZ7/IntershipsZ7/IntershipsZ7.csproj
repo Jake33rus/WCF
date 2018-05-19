@@ -103,7 +103,7 @@
     <Compile Include="ViewModels\ImmoEditorViewModel.cs" />
     <Compile Include="ViewModels\ImmovablesViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="ViewModels\TypesViewModel.cs" />
+    <Compile Include="ViewModels\RatioTypes.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
