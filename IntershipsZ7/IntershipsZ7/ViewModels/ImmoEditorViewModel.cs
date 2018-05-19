@@ -8,9 +8,15 @@ using System.Windows;
 
 namespace IntershipsZ7.ViewModels
 {
+    /// <summary>
+    /// Вложенная модель отвечающая за выбранную сущность и ее редактирование 
+    /// </summary>
     public class ImmoEditorViewModel:ChangeNotifier
     {
-        bool isProgrammingChange = false; // проверка на программное заполнения значений полей 
+        /// <summary>
+        /// проверка на программное заполнения значений полей 
+        /// </summary>
+        bool isProgrammingChange = false;
         ImmovablesViewModel immoVM;
         public ImmoEditorViewModel(Immovables immo, ServiceClient client, ImmovablesViewModel obj)
         {
@@ -35,10 +41,13 @@ namespace IntershipsZ7.ViewModels
         {
         }
 
-        public List<RatioTypes> TypesList { get; set; } // List хранящий соотношение значения id и типов сущностей, служит для заполнения Combobox
+        /// <summary>
+        /// List хранящий соотношение значения id и типов сущностей, служит для заполнения Combobox
+        /// </summary>
+        public List<RatioTypes> TypesList { get; set; }
 
         private string name;
-        public string Name //Значение свойства Text в текстбоксе Name
+        public string Name
         {
             get { return name; }
             set
@@ -50,7 +59,7 @@ namespace IntershipsZ7.ViewModels
         }
 
         private double footage;
-        public double Footage //Значение свойства Text в текстбоксе Footage
+        public double Footage
         {
             get { return footage; }
             set
@@ -62,7 +71,7 @@ namespace IntershipsZ7.ViewModels
         }
 
         private string location;
-        public string Location //Значение свойства Text в текстбоксе Location
+        public string Location
         {
             get { return location; }
             set
@@ -74,7 +83,7 @@ namespace IntershipsZ7.ViewModels
         }
 
         private int price;
-        public int Price //Значение свойства Text в текстбоксе Price
+        public int Price
         {
             get { return price; }
             set
@@ -86,7 +95,7 @@ namespace IntershipsZ7.ViewModels
         }
 
         private int? numberOfRooms;
-        public int? NumberOfRooms //Значение свойства Text в текстбоксе NumbRooms
+        public int? NumberOfRooms
         {
             get { return numberOfRooms; }
             set
@@ -98,7 +107,7 @@ namespace IntershipsZ7.ViewModels
         }
     
         private string apartmentType;
-        public string ApartmentType //Значение свойства Text в текстбоксе TypeApart
+        public string ApartmentType
         {
             get { return apartmentType; }
             set
@@ -110,7 +119,7 @@ namespace IntershipsZ7.ViewModels
         }
 
         private int? numberOfFloors;
-        public int? NumberOfFloors //Значение свойства Text в текстбоксе NumbFloors
+        public int? NumberOfFloors
         {
             get { return numberOfFloors; }
             set
@@ -122,7 +131,7 @@ namespace IntershipsZ7.ViewModels
         }
 
         private double? plotSize;
-        public double? PlotSize //Значение свойства Text в текстбоксе PlotSize
+        public double? PlotSize
         {
             get { return plotSize; }
             set
@@ -134,7 +143,7 @@ namespace IntershipsZ7.ViewModels
         }
 
         private string assigment;   
-        public string Assigment //Значение свойства Text в текстбоксе Assigment
+        public string Assigment
         {
             get { return assigment; }
             set
@@ -145,8 +154,11 @@ namespace IntershipsZ7.ViewModels
             }
         }
 
+        /// <summary>
+        /// Значение свойства SelectedValue в комбобоксе показывающем тип сущности
+        /// </summary>
         private int selectedType;
-        public virtual int SelectedType //Значение свойства SelectedValue в комбобоксе показывающем тип сущности
+        public virtual int SelectedType
         {
             get { return selectedType; }
             set
@@ -157,7 +169,10 @@ namespace IntershipsZ7.ViewModels
             }
         }
 
-        public void GetTypeList() // заполняет лист значениями
+        /// <summary>
+        /// Заполняет лист значениями
+        /// </summary>
+        public void GetTypeList()
         {
             TypesList = new List<RatioTypes>();
             TypesList.Add(new RatioTypes() { Id = 2, TypeName = "NoLivingSpace" });

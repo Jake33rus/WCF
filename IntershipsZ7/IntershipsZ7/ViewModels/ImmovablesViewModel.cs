@@ -14,10 +14,16 @@ using System.ServiceModel;
 
 namespace IntershipsZ7.ViewModels
 {
+    /// <summary>
+    /// Вьюмодель окна, отображение списка сущностей, настройка свойств элементов формы
+    /// </summary>
     public class ImmovablesViewModel:ChangeNotifier
     {
+        /// <summary>
+        /// проверка были ли изменены поля сущности
+        /// </summary>
         static bool isChange = false;
-        public bool IsChange { get { return isChange; }//проверка были ли изменены поля сущности
+        public bool IsChange { get { return isChange; }
             set
             {
                 isChange = value;
@@ -34,8 +40,11 @@ namespace IntershipsZ7.ViewModels
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// изменение доступности для нажатия кнопки "Repeal"
+        /// </summary>
         bool isEnabledButton = true;
-        public bool IsEnabledButton // изменение доступности для нажатия кнопки "Repeal"
+        public bool IsEnabledButton
         {
             get { return isEnabledButton; }
             set
@@ -44,8 +53,12 @@ namespace IntershipsZ7.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// видимость прогресс бара
+        /// </summary>
         bool isPBVisible;
-        public bool IsPBVisible // видимость прогресс бара
+        public bool IsPBVisible 
         {
             get { return isPBVisible; }
             set
@@ -56,9 +69,15 @@ namespace IntershipsZ7.ViewModels
         }
         
         public ServiceClient client;
-        public ObservableCollection<ImmoInfo> ImmoObsCol { get; set; }// хранит объекты которые будут показаны в ListView
+        /// <summary>
+        /// хранит объекты которые будут показаны в ListView
+        /// </summary>
+        public ObservableCollection<ImmoInfo> ImmoObsCol { get; set; }
+        /// <summary>
+        /// // хранит выбранную сущность, которую вернул сервер 
+        /// </summary>
         private Immovables selectedImmo;
-        public Immovables SelectedImmo // хранит выбранную сущность, которую вернул сервер 
+        public Immovables SelectedImmo 
         {
             get { return selectedImmo; }
             set
@@ -68,8 +87,11 @@ namespace IntershipsZ7.ViewModels
                 OnPropertyChanged("SelectedType");
             }
         }
+        /// <summary>
+        /// хранит значение свойства SelectedItem объекта ListView 
+        /// </summary>
         private ImmoInfo selectedListView;
-        public ImmoInfo SelectedListView // хранит значение свойства SelectedItem объекта ListView 
+        public ImmoInfo SelectedListView
         {
             get { return selectedListView; }
             set
@@ -90,8 +112,11 @@ namespace IntershipsZ7.ViewModels
             }
         }
 
+        /// <summary>
+        /// команда вызываемая при нажатии на кнопку Save
+        /// </summary>
         private RelayCommand saveCommand;
-        public RelayCommand SaveCommand //команда вызываемая при нажатии на кнопку Save
+        public RelayCommand SaveCommand
         {
             get
             {
@@ -102,7 +127,10 @@ namespace IntershipsZ7.ViewModels
                     }));
             }
         }
-        private async void  SaveChanged() // Сохраняет изменения в сущности
+        /// <summary>
+        /// Сохраняет изменения в сущности
+        /// </summary>
+        private async void  SaveChanged()
         {
             string message = null;
             try
@@ -129,8 +157,11 @@ namespace IntershipsZ7.ViewModels
             }
             
         }
+        /// <summary>
+        /// откатывает изменения в сущности
+        /// </summary>
         private RelayCommand repealCommand;
-        public RelayCommand RepealCommand // откатывает изменения в сущности
+        public RelayCommand RepealCommand
         {
             get
             {
@@ -148,7 +179,10 @@ namespace IntershipsZ7.ViewModels
                     }));
             }
         }
-        public void IsSaveChanges() //проверяет были ли изменения в сущности находящейся на редактировании
+        /// <summary>
+        /// проверяет были ли изменения в сущности находящейся на редактировании
+        /// </summary>
+        public void IsSaveChanges()
         {
             if (!isChange)
                 return;
