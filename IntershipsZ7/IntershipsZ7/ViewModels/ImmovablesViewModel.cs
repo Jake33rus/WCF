@@ -46,6 +46,7 @@ namespace IntershipsZ7.ViewModels
             set
             {
                 selectedListView = value;
+                if (immoEditorVM != null) immoEditorVM.IsSaveChanges();
                 var info = client.StartImmovablesEdit(selectedListView.id);
                 if (info.IsSuccess)
                 {
@@ -53,7 +54,6 @@ namespace IntershipsZ7.ViewModels
                 }
                 else
                 {
-                    if(immoEditorVM!=null) immoEditorVM.IsSaveChanges();
                     ImmoEditorVM = new ImmoEditorViewModel(info.Essence, client, info.PropInfo);
                 }              
             }

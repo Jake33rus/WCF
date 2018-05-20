@@ -54,16 +54,20 @@ namespace IntershipsZ7.ViewModels
                 return repealCommand ??
                     (repealCommand = new RelayCommand(obj =>
                     {
-                        var info = client.CancelEdit();
-                        if (!info.IsSuccess)
-                        {
-                            ChangeableImmo = info.Essence;
-                            IsChange = false;
-                            MessageBox.Show("Изменения отменены!", "MyApp");
-                        }
-                        else { MessageBox.Show("Произошла ошибка! -> {0}", info.Message); }
+                        CancelEdit();
                     }));
             }
+        }
+        public void CancelEdit()
+        {
+            var info = client.CancelEdit();
+            if (!info.IsSuccess)
+            {
+                ChangeableImmo = info.Essence;
+                IsChange = false;
+                MessageBox.Show("Изменения отменены!", "MyApp");
+            }
+            else { MessageBox.Show("Произошла ошибка! -> {0}", info.Message); }
         }
         /// <summary>
         /// проверяет были ли изменения в сущности находящейся на редактировании
@@ -80,14 +84,7 @@ namespace IntershipsZ7.ViewModels
             }
             if (result == MessageBoxResult.No)
             {
-                var info = client.CancelEdit();
-                if (!info.IsSuccess)
-                {
-                    ChangeableImmo = info.Essence;
-                    IsChange = false;
-                    MessageBox.Show("Изменения отменены!", "MyApp");
-                }
-                else { MessageBox.Show("Произошла ошибка! -> {0}", info.Message); }
+                CancelEdit();
             }
 
         }
@@ -162,12 +159,10 @@ namespace IntershipsZ7.ViewModels
             try
             {
                 isProgrammingChange = true;
-                var immoEditorProp = typeof(ImmoEditorViewModel).GetProperties();
-                var immoProperty = typeof(Immovables).GetProperties();
-                foreach(var immoEditProp in immoEditorProp)
+                foreach(var immoEditProp in CaсheProperty.ImmoEditorProperty)
                 {
                     string propName = immoEditProp.Name;
-                    foreach (var immoProp in immoProperty)
+                    foreach (var immoProp in CaсheProperty.ImmoProperty)
                     {
                         string imPropName = immoProp.Name;
                         if (propName == imPropName)
@@ -203,7 +198,7 @@ namespace IntershipsZ7.ViewModels
             get { return name; }
             set
             {
-                if (Changed(name)) name = value;
+                if (Changed(value)) name = value;
                 OnPropertyChanged();
             }
         }
@@ -215,7 +210,7 @@ namespace IntershipsZ7.ViewModels
             set
             {
                
-                if(Changed(footage)) footage = value;
+                if(Changed(value)) footage = value;
                 OnPropertyChanged();
             }
         }
@@ -226,7 +221,7 @@ namespace IntershipsZ7.ViewModels
             get { return location; }
             set
             {
-                if(Changed(location)) location = value; ;
+                if(Changed(value)) location = value; ;
                 OnPropertyChanged();
             }
         }
@@ -237,7 +232,7 @@ namespace IntershipsZ7.ViewModels
             get { return price; }
             set
             {
-                if(Changed(price)) price = value;
+                if(Changed(value)) price = value;
                 OnPropertyChanged();
             }
         }
@@ -248,7 +243,7 @@ namespace IntershipsZ7.ViewModels
             get { return numbRooms; }
             set
             {
-                if(Changed(numbRooms)) numbRooms = value;
+                if(Changed(value)) numbRooms = value;
                 OnPropertyChanged();
             }
         }
@@ -259,7 +254,7 @@ namespace IntershipsZ7.ViewModels
             get { return typeApart; }
             set
             {
-                if(Changed(typeApart)) typeApart = value;
+                if(Changed(value)) typeApart = value;
                 OnPropertyChanged();
             }
         }
@@ -270,7 +265,7 @@ namespace IntershipsZ7.ViewModels
             get { return numbFloors; }
             set
             {
-                if (Changed(numbFloors))numbFloors = value;
+                if (Changed(value))numbFloors = value;
                 OnPropertyChanged();
             }
         }
@@ -281,7 +276,7 @@ namespace IntershipsZ7.ViewModels
             get { return sizePlot; }
             set
             {
-                if(Changed(sizePlot))sizePlot = value;
+                if(Changed(value))sizePlot = value;
                 OnPropertyChanged();
             }
         }
@@ -292,7 +287,7 @@ namespace IntershipsZ7.ViewModels
             get { return assigment; }
             set
             {
-                if(Changed(assigment)) assigment = value;
+                if(Changed(value)) assigment = value;
                 OnPropertyChanged();
             }
         }
@@ -306,7 +301,7 @@ namespace IntershipsZ7.ViewModels
             get { return selectedType; }
             set
             {
-                if (Changed(selectedType, "Type")) selectedType = value;
+                if (Changed(value, "Type")) selectedType = value;
                 OnPropertyChanged();
             }
         }

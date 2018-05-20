@@ -23,6 +23,7 @@ namespace IntershipsZ7.Views
         public MainWindow()
         {
             InitializeComponent();
+            CaсheProperty.InitPropInfo();
             immoVM = new ImmovablesViewModel();
             DataContext = immoVM;
         }

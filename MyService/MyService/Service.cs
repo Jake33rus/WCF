@@ -16,18 +16,6 @@ namespace MyService
     {
         ImmoRepos ir = new ImmoRepos();
         Immovables immoEdit;
-        PropertyInfo[] immoPropertyInfo;
-        public Service()
-        {
-            GetPropInfo();
-        }
-
-        void GetPropInfo()
-        {
-            
-            immoPropertyInfo = typeof(Immovables).GetProperties();
-        }
-
         public EssenceSOR<Immovables> CancelEdit()
         {
             var operationResult = new EssenceSOR<Immovables>();
@@ -35,10 +23,10 @@ namespace MyService
             {
                 var tempIr = new ImmoRepos();
                 var d = tempIr.db.Immovables.FirstOrDefault(x => x.Id == immoEdit.Id);
-                foreach (PropertyInfo myProp in immoPropertyInfo)
+                foreach (PropertyInfo myProp in CacheImmoProperty.ImmoProperty)
                 {
                     string propName = myProp.Name;
-                    foreach (PropertyInfo oldProp in immoPropertyInfo)
+                    foreach (PropertyInfo oldProp in CacheImmoProperty.ImmoProperty)
                     {
                         string oldpropName = oldProp.Name;
                         if (propName == oldpropName)
@@ -97,7 +85,7 @@ namespace MyService
             var operationResult = new EssenceSOR<Immovables>();
             try
             { 
-                var prop = immoPropertyInfo.FirstOrDefault(myProp => myProp.Name == fieldName);
+                var prop = CacheImmoProperty.ImmoProperty.FirstOrDefault(myProp => myProp.Name == fieldName);
                 var t = prop.PropertyType;
                 if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
                 {

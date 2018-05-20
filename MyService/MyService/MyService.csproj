@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="ImmoInfo.cs" />
     <Compile Include="EssenceSOR.cs" />
+    <Compile Include="CacheImmoProperty.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="ListSOR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
