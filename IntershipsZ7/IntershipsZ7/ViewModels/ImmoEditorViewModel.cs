@@ -192,91 +192,83 @@ namespace IntershipsZ7.ViewModels
         /// </summary>
         public List<RatioTypes> TypesList { get; set; }
 
-        private string name;
         public string Name
         {
-            get { return name; }
+            get { return changeableImmo.Name; }
             set
             {
-                if (Changed(value)) name = value;
+                Changed(value);
                 OnPropertyChanged();
             }
         }
 
-        private double footage;
         public double Footage
         {
-            get { return footage; }
+            get { return changeableImmo.Footage; }
             set
             {
-               
-                if(Changed(value)) footage = value;
+
+                Changed(value);
                 OnPropertyChanged();
             }
         }
 
-        private string location;
         public string Location
         {
-            get { return location; }
+            get { return changeableImmo.Location; }
             set
             {
-                if(Changed(value)) location = value; ;
+                if(Changed(value))
                 OnPropertyChanged();
             }
         }
 
-        private int price;
         public int Price
         {
-            get { return price; }
+            get { return changeableImmo.Price; }
             set
             {
-                if(Changed(value)) price = value;
+                if(Changed(value))
                 OnPropertyChanged();
             }
         }
 
-        private int? numbRooms;
         public int? NumbRooms
         {
-            get { return numbRooms; }
+            get { return changeableImmo.NumbRooms; }
             set
             {
-                if(Changed(value)) numbRooms = value;
+                if(Changed(value))
                 OnPropertyChanged();
             }
         }
     
-        private string typeApart;
         public string TypeApart
         {
-            get { return typeApart; }
+            get { return changeableImmo.TypeApart; }
             set
             {
-                if(Changed(value)) typeApart = value;
+                if(Changed(value))
                 OnPropertyChanged();
             }
         }
 
-        private int? numbFloors;
         public int? NumbFloors
         {
-            get { return numbFloors; }
+            get { return changeableImmo.NumbFloors; }
             set
             {
-                if (Changed(value))numbFloors = value;
+                if (Changed(value))
                 OnPropertyChanged();
             }
         }
 
-        private double? sizePlot;
         public double? SizePlot
         {
-            get { return sizePlot; }
+            get { return changeableImmo.SizePlot; }
             set
             {
-                if(Changed(value))sizePlot = value;
+                if(Changed(value))
                 OnPropertyChanged();
             }
         }
@@ -284,10 +276,10 @@ namespace IntershipsZ7.ViewModels
         private string assigment;   
         public string Assigment
         {
-            get { return assigment; }
+            get { return changeableImmo.Assigment; }
             set
             {
-                if(Changed(value)) assigment = value;
+                if(Changed(value))
                 OnPropertyChanged();
             }
         }
@@ -295,13 +287,12 @@ namespace IntershipsZ7.ViewModels
         /// <summary>
         /// Значение свойства SelectedValue в комбобоксе показывающем тип сущности
         /// </summary>
-        private int selectedType;
         public virtual int SelectedType
         {
-            get { return selectedType; }
+            get { return changeableImmo.Type; }
             set
             {
-                if (Changed(value, "Type")) selectedType = value;
+                if (Changed(value, "Type"))
                 OnPropertyChanged();
             }
         }
@@ -333,6 +324,7 @@ namespace IntershipsZ7.ViewModels
                 }
                 else
                 {
+                    changeableImmo = info.Essence;
                     IsChange = true;
                     return true;
                 }
