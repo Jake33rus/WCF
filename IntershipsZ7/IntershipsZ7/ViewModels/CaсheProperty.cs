@@ -11,11 +11,9 @@ namespace IntershipsZ7.ViewModels
     public static class CaсheProperty
     {
         public static PropertyInfo[] ImmoProperty { get; set; }
-        public static PropertyInfo[] ImmoEditorProperty { get; set; }
         public static void InitPropInfo()
         {
             ImmoProperty = typeof(Immovables).GetProperties();
-            ImmoEditorProperty = typeof(ImmoEditorViewModel).GetProperties();
         }
     }
 }

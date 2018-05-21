@@ -64,6 +64,11 @@ namespace IntershipsZ7.ViewModels
             if (!info.IsSuccess)
             {
                 ChangeableImmo = info.Essence;
+                foreach (PropertyInfo prop in CaсheProperty.ImmoProperty)
+                {
+                    OnPropertyChanged(prop.Name);
+                }
+                OnPropertyChanged("SelectedType");
                 IsChange = false;
                 MessageBox.Show("Изменения отменены!", "MyApp");
             }
@@ -150,35 +155,13 @@ namespace IntershipsZ7.ViewModels
             set
             {         
                 changeableImmo = value;
-                FieldInit();
                 OnPropertyChanged();
             }
         }
-        void FieldInit()
-        {
-            try
-            {
-                isProgrammingChange = true;
-                foreach(var immoEditProp in CaсheProperty.ImmoEditorProperty)
-                {
-                    string propName = immoEditProp.Name;
-                    foreach (var immoProp in CaсheProperty.ImmoProperty)
-                    {
-                        string imPropName = immoProp.Name;
-                        if (propName == imPropName)
-                        {
-                            immoEditProp.SetValue(this, immoProp.GetValue(changeableImmo));
-                        }
-                    }
-                }
-                SelectedType = ChangeableImmo.Type;
-            }
-            finally { isProgrammingChange = false; }
-        }
+
         /// <summary>
         /// проверка на программное заполнения значений полей 
         /// </summary>
-        bool isProgrammingChange = false;
         public ImmoEditorViewModel(Immovables immo, ServiceClient client, PropertyInfo[] property )
         {   
 
@@ -273,7 +256,6 @@ namespace IntershipsZ7.ViewModels
             }
         }
 
-        private string assigment;   
         public string Assigment
         {
             get { return changeableImmo.Assigment; }
@@ -311,8 +293,6 @@ namespace IntershipsZ7.ViewModels
 
         public bool Changed(object val, [CallerMemberName] string fieldName = "")
         {
-            if (isProgrammingChange)
-                return true;
             try
             {
                 var info = client.SetImmovablesFieldValue(fieldName, val);
