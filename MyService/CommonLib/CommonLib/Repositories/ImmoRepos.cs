@@ -11,7 +11,6 @@ namespace CommonLib.Repositories
     {
         public byte[] GetVersion()
         {
-            DataBaseContext db = new DataBaseContext();
             var max = db.Immovables.Max(x => x.Version);
             return max;
         }

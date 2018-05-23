@@ -64,11 +64,7 @@ namespace IntershipsZ7.ViewModels
             if (!info.IsSuccess)
             {
                 ChangeableImmo = info.Essence;
-                foreach (PropertyInfo prop in CaсheProperty.ImmoProperty)
-                {
-                    OnPropertyChanged(prop.Name);
-                }
-                OnPropertyChanged("SelectedType");
+                OnPropertyChanged("");
                 IsChange = false;
                 MessageBox.Show("Изменения отменены!", "MyApp");
             }

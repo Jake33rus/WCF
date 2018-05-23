@@ -22,6 +22,10 @@ namespace CommonLib.Repositories
             db.Entry(entity).CurrentValues.SetValues(newValues);
             db.SaveChanges();
         }
+        public IEnumerable<T> LoadByLinq(Func<T,bool> fwhere)
+        {
+            return db.Set<T>().Where(fwhere);
+        }
         public virtual List<T> Load()
         {
             DbSet<T> dbSet = db.Set<T>();

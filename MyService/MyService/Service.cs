@@ -14,6 +14,7 @@ namespace MyService
     // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени класса "Service1" в коде и файле конфигурации.
     public class Service : IService
     {
+        public static PropertyInfo[] ImmoProperty { get; set; }
         ImmoRepos ir = new ImmoRepos();
         Immovables immoEdit;
         public EssenceSOR<Immovables> CancelEdit()
@@ -22,11 +23,11 @@ namespace MyService
             try
             {
                 var tempIr = new ImmoRepos();
-                var d = tempIr.db.Immovables.FirstOrDefault(x => x.Id == immoEdit.Id);
-                foreach (PropertyInfo myProp in CacheImmoProperty.ImmoProperty)
+                var d = tempIr.LoadByLinq(x => x.Id == immoEdit.Id).First();
+                foreach (PropertyInfo myProp in ImmoProperty)
                 {
                     string propName = myProp.Name;
-                    foreach (PropertyInfo oldProp in CacheImmoProperty.ImmoProperty)
+                    foreach (PropertyInfo oldProp in ImmoProperty)
                     {
                         string oldpropName = oldProp.Name;
                         if (propName == oldpropName)
@@ -85,7 +86,7 @@ namespace MyService
             var operationResult = new EssenceSOR<Immovables>();
             try
             { 
-                var prop = CacheImmoProperty.ImmoProperty.FirstOrDefault(myProp => myProp.Name == fieldName);
+                var prop = ImmoProperty.FirstOrDefault(myProp => myProp.Name == fieldName);
                 var t = prop.PropertyType;
                 if (t.IsGenericType && t.GetGenericTypeDefinition().Equals(typeof(Nullable<>)))
                 {

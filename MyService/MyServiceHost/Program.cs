@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
 using MyService;
+using CommonLib.Models;
+using CommonLib.Repositories;
 
 namespace MyServiceHost
 {
@@ -12,7 +14,7 @@ namespace MyServiceHost
     {
         static void Main()
         {
-            CacheImmoProperty.PropInit();
+            Service.ImmoProperty = typeof(Immovables).GetProperties();
             using (var host = new ServiceHost(typeof(MyService.Service)))
             {
                 host.Open();
