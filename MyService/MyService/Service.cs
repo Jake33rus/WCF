@@ -14,9 +14,15 @@ namespace MyService
     // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени класса "Service1" в коде и файле конфигурации.
     public class Service : IService
     {
-        public static PropertyInfo[] ImmoProperty { get; set; }
+        public static readonly PropertyInfo[] ImmoProperty;
         ImmoRepos ir = new ImmoRepos();
         Immovables immoEdit;
+
+        static Service()
+        {
+            ImmoProperty = typeof(Immovables).GetProperties();
+        }
+
         public EssenceSOR<Immovables> CancelEdit()
         {
             var operationResult = new EssenceSOR<Immovables>();

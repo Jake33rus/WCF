@@ -14,7 +14,6 @@ namespace MyServiceHost
     {
         static void Main()
         {
-            Service.ImmoProperty = typeof(Immovables).GetProperties();
             using (var host = new ServiceHost(typeof(MyService.Service)))
             {
                 host.Open();
