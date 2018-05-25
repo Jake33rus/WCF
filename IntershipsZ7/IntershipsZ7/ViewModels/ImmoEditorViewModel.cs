@@ -1,4 +1,5 @@
-﻿using IntershipsZ7.MyService;
+﻿using IntershipsZ7.Models;
+using IntershipsZ7.MyService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,9 +61,9 @@ namespace IntershipsZ7.ViewModels
         }
         public void CancelEdit()
         {
-            var info = client.CancelEdit();
+            var info = immoModel.CancelEdit();
             if (!info.IsSuccess)
-            {
+            { 
                 ChangeableImmo = info.Essence;
                 OnPropertyChanged("");
                 IsChange = false;
@@ -126,7 +127,7 @@ namespace IntershipsZ7.ViewModels
                 var task = Task.Factory.StartNew(() =>
                 {
                     IsPBVisible = true;
-                    var info = client.DBSave();
+                    var info = immoModel.ImmoSaveChanged();
                     message = info.IsSuccess ? info.Message : "Изменения сохранены";
                 });
                 await task;
@@ -154,18 +155,16 @@ namespace IntershipsZ7.ViewModels
                 OnPropertyChanged();
             }
         }
-
         /// <summary>
         /// проверка на программное заполнения значений полей 
         /// </summary>
-        public ImmoEditorViewModel(Immovables immo, ServiceClient client, PropertyInfo[] property )
-        {   
-
-            this.client = client;
-            ChangeableImmo = immo;
+        public ImmoEditorViewModel(ImmoModel immoModel)
+        {
+            this.immoModel = immoModel;
+            ChangeableImmo = immoModel.Immo;
             GetTypeList();
         }
-        ServiceClient client;
+        ImmoModel immoModel;
         /// <summary>
         /// List хранящий соотношение значения id и типов сущностей, служит для заполнения Combobox
         /// </summary>
@@ -291,7 +290,7 @@ namespace IntershipsZ7.ViewModels
         {
             try
             {
-                var info = client.SetImmovablesFieldValue(fieldName, val);
+                var info = immoModel.ChangeField(fieldName, val);
                 if (info.IsSuccess)
                 {
                     MessageBox.Show("Произошла ошибка -> {0}", info.Message);

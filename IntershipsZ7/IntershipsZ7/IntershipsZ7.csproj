@@ -99,7 +99,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Models\ImmoModel.cs" />
     <Compile Include="ViewModels\ChangeNotifier.cs" />
+    <Compile Include="ViewModels\FieldViewModel.cs" />
     <Compile Include="ViewModels\ImmoEditorViewModel.cs" />
     <Compile Include="ViewModels\ImmovablesViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />

@@ -11,6 +11,7 @@ using System.Data.Entity;
 using IntershipsZ7.RemoteService;
 using IntershipsZ7.MyService;
 using System.ServiceModel;
+using IntershipsZ7.Models;
 
 namespace IntershipsZ7.ViewModels
 {
@@ -55,7 +56,8 @@ namespace IntershipsZ7.ViewModels
                 }
                 else
                 {
-                    ImmoEditorVM = new ImmoEditorViewModel(info.Essence, client, info.PropInfo);
+                    ImmoModel immoModel = new ImmoModel(client, info.Essence); 
+                    ImmoEditorVM = new ImmoEditorViewModel(immoModel);
                 }              
             }
         }
