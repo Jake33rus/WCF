@@ -89,15 +89,23 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Connected Services\MyService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\RemoteService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Models\ImmoModel.cs" />
     <Compile Include="ViewModels\ChangeNotifier.cs" />
+    <Compile Include="ViewModels\FieldViewModel.cs" />
+    <Compile Include="ViewModels\ImmoEditorViewModel.cs" />
     <Compile Include="ViewModels\ImmovablesViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
-    <Compile Include="ViewModels\TypesViewModel.cs" />
+    <Compile Include="ViewModels\RatioTypes.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -121,9 +129,31 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\RemoteService\IntershipsZ7.RemoteService.ServiceOperationResult.datasource">
+    <None Include="Connected Services\MyService\IntershipsZ7.MyService.EssenceSOROfImmovablesz2cTNpOZ.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\MyService\IntershipsZ7.MyService.ListSOROfImmoInfoN5x5yyRL.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MyService\IntershipsZ7.MyService.ServiceOperationResult1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MyService\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\item4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\Service.wsdl" />
     <None Include="Connected Services\RemoteService\Saver.wsdl" />
     <None Include="Connected Services\RemoteService\Saver.xsd">
       <SubType>Designer</SubType>
@@ -132,9 +162,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\RemoteService\Saver2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\RemoteService\Saver3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -162,6 +189,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\MyService\" />
     <WCFMetadataStorage Include="Connected Services\RemoteService\" />
   </ItemGroup>
   <ItemGroup>
@@ -180,10 +208,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\CommonLib\CommonLib\CommonLib.csproj">
-      <Project>{9335e808-1898-4c24-8866-55e31cab118f}</Project>
-      <Name>CommonLib</Name>
-    </ProjectReference>
+    <None Include="Connected Services\MyService\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MyService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MyService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:9080/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:9080/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CommonLib.Models" />
+  <xs:import schemaLocation="http://localhost:9080/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Reflection" />
+  <xs:complexType name="ListSOROfImmoInfoN5x5yyRL">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="ListSOROf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/MyService" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ImmoInfo" Namespace="http://schemas.datacontract.org/2004/07/MyService" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceOperationResult">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="List" nillable="true" type="tns:ArrayOfImmoInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ListSOROfImmoInfoN5x5yyRL" nillable="true" type="tns:ListSOROfImmoInfoN5x5yyRL" />
+  <xs:complexType name="ServiceOperationResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsSuccess" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServiceOperationResult" nillable="true" type="tns:ServiceOperationResult" />
+  <xs:complexType name="ArrayOfImmoInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ImmoInfo" type="tns:ImmoInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfImmoInfo" nillable="true" type="tns:ArrayOfImmoInfo" />
+  <xs:complexType name="ImmoInfo">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" type="xs:int" />
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImmoInfo" nillable="true" type="tns:ImmoInfo" />
+  <xs:complexType name="EssenceSOROfImmovablesz2cTNpOZ">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="EssenceSOROf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/MyService" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Immovables" Namespace="http://schemas.datacontract.org/2004/07/CommonLib.Models" />
+        </GenericType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServiceOperationResult">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CommonLib.Models" minOccurs="0" name="Essence" nillable="true" type="q1:Immovables" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System.Reflection" minOccurs="0" name="PropInfo" nillable="true" type="q2:ArrayOfPropertyInfo" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="EssenceSOROfImmovablesz2cTNpOZ" nillable="true" type="tns:EssenceSOROfImmovablesz2cTNpOZ" />
+</xs:schema>

@@ -28,8 +28,9 @@ namespace IntershipsZ7.Views
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        { 
-            immoVM.cancelTokenSource.Cancel();
+        {
+            immoVM.Closing();
         }
+
     }
 }
