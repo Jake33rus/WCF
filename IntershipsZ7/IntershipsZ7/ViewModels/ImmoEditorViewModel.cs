@@ -161,8 +161,30 @@ namespace IntershipsZ7.ViewModels
         public ImmoEditorViewModel(ImmoModel immoModel)
         {
             this.immoModel = immoModel;
+            FootageField = new FieldViewModel(immoModel, "Footage");
+            NumbFloorsField = new FieldViewModel(immoModel, "NumbFloors");
             ChangeableImmo = immoModel.Immo;
             GetTypeList();
+        }
+        FieldViewModel numbFloorsField;
+        public FieldViewModel NumbFloorsField
+        {
+            get { return numbFloorsField; }
+            set
+            {
+                numbFloorsField = value;
+                OnPropertyChanged();
+            }
+        }
+        FieldViewModel footageField;
+        public FieldViewModel FootageField
+        {
+            get { return footageField; }
+            set
+            {
+                footageField = value;
+                OnPropertyChanged();
+            }
         }
         ImmoModel immoModel;
         /// <summary>

@@ -45,7 +45,7 @@
                     <Label Grid.Column="0" Grid.Row="1" Content="Name ->"/>
                     <TextBox Name="Name" Grid.Column="1" Grid.Row="1" Text="{Binding Name, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="2" Content="Footage ->"/>
-                    <TextBox Name="Footage" Grid.Column="1" Grid.Row="2" Text="{Binding Footage, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox DataContext="{Binding FootageField}" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Value, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="3" Content="Location ->"/>
                     <TextBox Name="Location" Grid.Column="1" Grid.Row="3" Text="{Binding Location, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="4" Content="Price ->"/>
@@ -55,7 +55,7 @@
                     <Label Grid.Column="0" Grid.Row="6" Content="Apartmet type ->"/>
                     <TextBox Name="TypeApart" Grid.Column="1" Grid.Row="6" Text="{Binding TypeApart, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="7" Content="Number of Floors ->"/>
-                    <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="7" Text="{Binding NumbFloors, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox DataContext="{Binding NumbFloorsField}" Grid.Column="1" Grid.Row="7" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible, Converter={StaticResource BoolToVisConverter}}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="8" Content="Plot size ->"/>
                     <TextBox Name="SizePlot" Grid.Column="1" Grid.Row="8" Text="{Binding SizePlot, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="9" Content="Assigment ->"/>
