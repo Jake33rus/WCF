@@ -43,7 +43,7 @@
                     <Label Grid.Column="0" Grid.Row="0" Content="Type ->"/>
                     <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Path=TypesList}" DisplayMemberPath="TypeName" SelectedValue="{Binding SelectedType}" SelectedValuePath="Id"  IsSynchronizedWithCurrentItem="True" Grid.ColumnSpan="2"/>
                     <Label Grid.Column="0" Grid.Row="1" Content="Name ->"/>
-                    <TextBox Name="Name" Grid.Column="1" Grid.Row="1" Text="{Binding Name, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox DataContext="{Binding NameField}" Name="Name" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Value, Mode=TwoWay}"  Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="2" Content="Footage ->"/>
                     <TextBox Name="Footage" Grid.Column="1" Grid.Row="2" Text="{Binding Footage, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="3" Content="Location ->"/>
@@ -53,7 +53,7 @@
                     <Label Grid.Column="0" Grid.Row="5" Content="Number of Rooms ->"/>
                     <TextBox Name="NumbRooms" Grid.Column="1" Grid.Row="5" Text="{Binding NumbRooms, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="6" Content="Apartmet type ->"/>
-                    <TextBox Name="TypeApart" Grid.Column="1" Grid.Row="6" Text="{Binding TypeApart, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox DataContext="{Binding TypeApartField}" Name="TypeApart" Grid.Column="1" Grid.Row="6" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible,Converter={StaticResource BoolToVisConverter}}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="7" Content="Number of Floors ->"/>
                     <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="7" Text="{Binding NumbFloors, Mode=TwoWay}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="8" Content="Plot size ->"/>

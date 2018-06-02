@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IntershipsZ7.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,13 +51,13 @@ namespace IntershipsZ7.ViewModels
         }
         private string editorType;
 
-        public FieldViewModel(string value, string caption="", bool enable=true, bool visible=true, string editorType="")
+        public FieldViewModel(FieldModel field)
         {
-            Value = value;
-            Caption = caption;
-            Enable = enable;
-            Visible = visible;
-            EditorType = editorType;
+            Value = field.Value;
+            Caption = field.Caption;
+            Enable = field.Enable;
+            Visible = field.Visible;
+            EditorType = field.EditorType;
         }
 
         public string EditorType
