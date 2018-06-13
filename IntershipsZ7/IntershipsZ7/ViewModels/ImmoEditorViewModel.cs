@@ -16,6 +16,7 @@ namespace IntershipsZ7.ViewModels
     /// </summary>
     public class ImmoEditorViewModel : ChangeNotifier
     {
+        delegate object GetDilegate(string name);
         /// <summary>
         /// проверка были ли изменены поля сущности
         /// </summary>
@@ -162,12 +163,10 @@ namespace IntershipsZ7.ViewModels
         {
             this.immoModel = immoModel;
             ChangeableImmo = immoModel.Immo;
-            TypeApartField = new FieldViewModel(immoModel.GetField("TypeApart"));
-            NameField = new FieldViewModel(immoModel.GetField("Name"));
+            NameField = new FieldViewModel(x => immoModel.GetField(x), (x,y)=>immoModel.ChangeField(x,y) , "Name");   
             GetTypeList();
         }
         public FieldViewModel NameField { get; set; }
-        public FieldViewModel TypeApartField { get; set; }
         ImmoModel immoModel;
         /// <summary>
         /// List хранящий соотношение значения id и типов сущностей, служит для заполнения Combobox

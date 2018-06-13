@@ -39,9 +39,8 @@ namespace IntershipsZ7.Models
         {
             return client.CancelEdit();
         }
-        public FieldModel GetField(string fieldName = "")
+        public object GetField(string fieldName = "")
         {
-
             foreach (PropertyInfo prop in immoProperty)
             {
                 if (prop.Name == fieldName)
@@ -49,7 +48,7 @@ namespace IntershipsZ7.Models
                     var temp = prop.GetValue(Immo);
                     if (temp != null)
                     {
-                          return new FieldModel(temp.ToString(), fieldName, true, true);
+                        return temp;
                     }
                 }
             }
