@@ -52,7 +52,7 @@ namespace IntershipsZ7.Models
                     }
                 }
             }
-            return new FieldModel(null, fieldName, false, false);
+            return null;
         }
 
     }

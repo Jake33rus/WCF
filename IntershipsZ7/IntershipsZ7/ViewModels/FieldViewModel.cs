@@ -13,8 +13,7 @@ namespace IntershipsZ7.ViewModels
     {
         Func<string,object> getValue;
         Func<string, object, object> setValue;
-        Func<bool> setEnabled;
-        Func<bool> setVisible; 
+        Func<bool, bool> getEnabled, getVisible;
         string nameField;
         public object Value
         {
@@ -44,7 +43,7 @@ namespace IntershipsZ7.ViewModels
             get { return enable; }
             set
             {
-                enable = setEnabled();
+                enable = getEnabled();
                 OnPropertyChanged();
             }
         }
@@ -54,7 +53,7 @@ namespace IntershipsZ7.ViewModels
             get { return visible; }
             set
             {
-                visible = setVisible();
+                visible = getVisible();
                 OnPropertyChanged();
             }
         }
@@ -65,13 +64,13 @@ namespace IntershipsZ7.ViewModels
             var memberExperession = (MemberExpression) property.Body;
             targetPropertyInfo = (PropertyInfo) memberExperession.Member;
         }*/
-        public FieldViewModel(Func<string,object> getValue,Func<string, object, object> setValue, Func<bool> setVisible, Func<bool> setEnabled,  string nameField)
+        public FieldViewModel(Func<string,object> getValue,Func<string, object, object> setValue, string nameField, Func<bool, bool> getVisible, Func<bool, bool> getEnabled)
         {
             this.getValue = getValue;
             this.nameField = nameField;
             this.setValue = setValue;
-            this.setEnabled = setEnabled;
-            this.setVisible = setVisible;
+            this.getEnabled = getEnabled;
+            this.getVisible = getVisible;
         }
         public string EditorType
         {

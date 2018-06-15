@@ -43,23 +43,23 @@
                     <Label Grid.Column="0" Grid.Row="0" Content="Type ->"/>
                     <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Path=TypesList}" DisplayMemberPath="TypeName" SelectedValue="{Binding SelectedType}" SelectedValuePath="Id"  IsSynchronizedWithCurrentItem="True" Grid.ColumnSpan="2"/>
                     <Label Grid.Column="0" Grid.Row="1" Content="Name ->"/>
-                    <TextBox DataContext="{Binding NameField}" Name="Name" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Value, Mode=TwoWay}"  Grid.ColumnSpan="2" />
+                    <TextBox DataContext="{Binding NameField}" Name="Name" Grid.Column="1" Grid.Row="1" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible, Converter={StaticResource BoolToVisConverter}}"  Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="2" Content="Footage ->"/>
-                    <TextBox Name="Footage" Grid.Column="1" Grid.Row="2" Text="{Binding Footage, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox Name="Footage" Grid.Column="1" Grid.Row="2" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible, Converter={StaticResource BoolToVisConverter}}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="3" Content="Location ->"/>
-                    <TextBox Name="Location" Grid.Column="1" Grid.Row="3" Text="{Binding Location, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox Name="Location" Grid.Column="1" Grid.Row="3" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible, Converter={StaticResource BoolToVisConverter}}"  Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="4" Content="Price ->"/>
-                    <TextBox Name="Price" Grid.Column="1" Grid.Row="4" Text="{Binding Price, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox Name="Price" Grid.Column="1" Grid.Row="4" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible, Converter={StaticResource BoolToVisConverter}}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="5" Content="Number of Rooms ->"/>
-                    <TextBox Name="NumbRooms" Grid.Column="1" Grid.Row="5" Text="{Binding NumbRooms, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                    <Label Grid.Column="0" Grid.Row="6" Content="Apartmet type ->"/>
+                    <TextBox Name="NumbRooms" Grid.Column="1" Grid.Row="5" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible, Converter={StaticResource BoolToVisConverter}}" Grid.ColumnSpan="2" />
+                    <Label Grid.Column="0" Grid.Row="6" Content="Apartment type ->"/>
                     <TextBox DataContext="{Binding TypeApartField}" Name="TypeApart" Grid.Column="1" Grid.Row="6" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible,Converter={StaticResource BoolToVisConverter}}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="7" Content="Number of Floors ->"/>
-                    <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="7" Text="{Binding NumbFloors, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="7" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible, Converter={StaticResource BoolToVisConverter}}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="8" Content="Plot size ->"/>
-                    <TextBox Name="SizePlot" Grid.Column="1" Grid.Row="8" Text="{Binding SizePlot, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBox Name="SizePlot" Grid.Column="1" Grid.Row="8" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible, Converter={StaticResource BoolToVisConverter}}" Grid.ColumnSpan="2" />
                     <Label Grid.Column="0" Grid.Row="9" Content="Assigment ->"/>
-                    <TextBox Name="Assigment" Grid.Column="1" Grid.Row="9" Text="{Binding Assigment, Mode=TwoWay}" Grid.ColumnSpan="2"/>
+                    <TextBox Name="Assigment" Grid.Column="1" Grid.Row="9" Text="{Binding Path=Value, Mode=TwoWay}" Visibility="{Binding Path=Visible, Converter={StaticResource BoolToVisConverter}}" Grid.ColumnSpan="2"/>
                 </Grid>
 
             </Grid>
