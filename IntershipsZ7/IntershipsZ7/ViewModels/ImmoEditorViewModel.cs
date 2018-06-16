@@ -164,28 +164,32 @@ namespace IntershipsZ7.ViewModels
         {
             this.immoModel = immoModel;
             ChangeableImmo = immoModel.Immo;
-            ColField = new ObservableCollection<FieldViewModel>()
-            {
-                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Name", visible => true, enabled => true),
-                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Footage", visible => true, enabled => true),
-                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Location", visible => true, enabled => true),
-                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Price", visible => true, enabled => true),
-                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "NumbRooms", visible => true, enabled => true),
-                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "TypeApart", visible => true, enabled => true),
-                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "NumbFloors", visible => true, enabled => true),
-                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Assigment", visible => true, enabled => true),
-                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "SizePlot", visible => true, enabled => true),
-            };
+            GetFields();
             GetTypeList();
         }
         public FieldViewModel NameField { get; set; }
-        public ObservableCollection<FieldViewModel> ColField {get; set;}
+       
         ImmoModel immoModel;
         /// <summary>
         /// List хранящий соотношение значения id и типов сущностей, служит для заполнения Combobox
         /// </summary>
         public List<RatioTypes> TypesList { get; set; }
-
+        public List<FieldViewModel> ColFields { get; set; }
+        void GetFields()
+        {
+            ColFields = new List<FieldViewModel>()
+            {
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Name", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Footage", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Location", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Price", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "NumbRooms", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "TypeApart", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "NumbFloors", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "SizePlot", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Assigment", () => true, () => true)
+            };
+        }
         public string Name
         {
             get { return changeableImmo.Name; }

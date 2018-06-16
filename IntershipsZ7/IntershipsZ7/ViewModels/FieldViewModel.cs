@@ -13,7 +13,7 @@ namespace IntershipsZ7.ViewModels
     {
         Func<string,object> getValue;
         Func<string, object, object> setValue;
-        Func<bool, bool> getEnabled, getVisible;
+        Func<bool> getEnabled, getVisible;
         string nameField;
         public object Value
         {
@@ -37,25 +37,13 @@ namespace IntershipsZ7.ViewModels
                 OnPropertyChanged();
             }
         }
-        private bool enable;
         public bool Enable
         {
-            get { return enable; }
-            set
-            {
-                enable = getEnabled();
-                OnPropertyChanged();
-            }
+            get { return getEnabled(); }
         }
-        private bool visible;
         public bool Visible
         {
-            get { return visible; }
-            set
-            {
-                visible = getVisible();
-                OnPropertyChanged();
-            }
+            get { return getVisible(); }
         }
         private string editorType;
 
@@ -64,7 +52,7 @@ namespace IntershipsZ7.ViewModels
             var memberExperession = (MemberExpression) property.Body;
             targetPropertyInfo = (PropertyInfo) memberExperession.Member;
         }*/
-        public FieldViewModel(Func<string,object> getValue,Func<string, object, object> setValue, string nameField, Func<bool, bool> getVisible, Func<bool, bool> getEnabled)
+        public FieldViewModel(Func<string,object> getValue,Func<string, object, object> setValue, string nameField, Func<bool> getVisible, Func<bool> getEnabled)
         {
             this.getValue = getValue;
             this.nameField = nameField;
