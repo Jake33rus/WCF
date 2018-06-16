@@ -24,46 +24,33 @@
                 <Grid Grid.Row="1"
                       DataContext="{Binding ImmoEditorVM}" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" SharedSizeGroup="InfoLabels"/>
-                        <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="23*"/>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="InfoLabels" MinWidth="113"/>
+                        <ColumnDefinition Width="41*"/>
+                        <ColumnDefinition Width="222*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Content="Type ->"/>
                     <ComboBox Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Path=TypesList}" DisplayMemberPath="TypeName" SelectedValue="{Binding SelectedType}" SelectedValuePath="Id"  IsSynchronizedWithCurrentItem="True" Grid.ColumnSpan="2"/>
-                    <Label Grid.Column="0" Grid.Row="1" Content="Name ->"/>
-                    <TextBox Name="Name" Grid.Column="1" Grid.Row="1" Text="{Binding Name, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                    <Label Grid.Column="0" Grid.Row="2" Content="Footage ->"/>
-                    <TextBox Name="Footage" Grid.Column="1" Grid.Row="2" Text="{Binding Footage, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                    <Label Grid.Column="0" Grid.Row="3" Content="Location ->"/>
-                    <TextBox Name="Location" Grid.Column="1" Grid.Row="3" Text="{Binding Location, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                    <Label Grid.Column="0" Grid.Row="4" Content="Price ->"/>
-                    <TextBox Name="Price" Grid.Column="1" Grid.Row="4" Text="{Binding Price, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                    <Label Grid.Column="0" Grid.Row="5" Content="Number of Rooms ->"/>
-                    <TextBox Name="NumbRooms" Grid.Column="1" Grid.Row="5" Text="{Binding NumbRooms, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                    <Label Grid.Column="0" Grid.Row="6" Content="Apartmet type ->"/>
-                    <TextBox Name="TypeApart" Grid.Column="1" Grid.Row="6" Text="{Binding TypeApart, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                    <Label Grid.Column="0" Grid.Row="7" Content="Number of Floors ->"/>
-                    <TextBox Name="NumbFloors" Grid.Column="1" Grid.Row="7" Text="{Binding NumbFloors, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                    <Label Grid.Column="0" Grid.Row="8" Content="Plot size ->"/>
-                    <TextBox Name="SizePlot" Grid.Column="1" Grid.Row="8" Text="{Binding SizePlot, Mode=TwoWay}" Grid.ColumnSpan="2" />
-                    <Label Grid.Column="0" Grid.Row="9" Content="Assigment ->"/>
-                    <TextBox Name="Assigment" Grid.Column="1" Grid.Row="9" Text="{Binding Assigment, Mode=TwoWay}" Grid.ColumnSpan="2"/>
                 </Grid>
-
+                <Grid Margin="0,37,0,0"  DataContext="{Binding ImmoEditorVM}">
+                    <ItemsControl ItemsSource="{Binding ColFields}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="222"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="{Binding Caption}"/>
+                                    <TextBox Grid.Column="1" Text="{Binding Value, Mode=TwoWay}" Visibility="{Binding Visible, Converter={StaticResource BoolToVisConverter}}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
             </Grid>
-
         </GroupBox>
         <Grid DataContext="{Binding ImmoEditorVM}">
             <Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Left" Margin="10,338,0,0" VerticalAlignment="Top" Width="124" Height="37" IsEnabled="{Binding IsEnabledButton}"/>

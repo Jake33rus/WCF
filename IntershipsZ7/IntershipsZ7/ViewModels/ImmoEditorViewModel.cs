@@ -2,6 +2,7 @@
 using IntershipsZ7.MyService;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -14,8 +15,9 @@ namespace IntershipsZ7.ViewModels
     /// <summary>
     /// Вложенная модель отвечающая за выбранную сущность и ее редактирование 
     /// </summary>
-    public class ImmoEditorViewModel:ChangeNotifier
-    {  
+    public class ImmoEditorViewModel : ChangeNotifier
+    {
+        delegate object GetDilegate(string name);
         /// <summary>
         /// проверка были ли изменены поля сущности
         /// </summary>
@@ -63,7 +65,7 @@ namespace IntershipsZ7.ViewModels
         {
             var info = immoModel.CancelEdit();
             if (!info.IsSuccess)
-            { 
+            {
                 ChangeableImmo = info.Essence;
                 OnPropertyChanged("");
                 IsChange = false;
@@ -150,7 +152,7 @@ namespace IntershipsZ7.ViewModels
         {
             get { return changeableImmo; }
             set
-            {         
+            {
                 changeableImmo = value;
                 OnPropertyChanged();
             }
@@ -162,14 +164,32 @@ namespace IntershipsZ7.ViewModels
         {
             this.immoModel = immoModel;
             ChangeableImmo = immoModel.Immo;
+            GetFields();
             GetTypeList();
         }
+        public FieldViewModel NameField { get; set; }
+       
         ImmoModel immoModel;
         /// <summary>
         /// List хранящий соотношение значения id и типов сущностей, служит для заполнения Combobox
         /// </summary>
         public List<RatioTypes> TypesList { get; set; }
-
+        public List<FieldViewModel> ColFields { get; set; }
+        void GetFields()
+        {
+            ColFields = new List<FieldViewModel>()
+            {
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Name", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Footage", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Location", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Price", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "NumbRooms", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "TypeApart", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "NumbFloors", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "SizePlot", () => true, () => true),
+                new FieldViewModel(value => immoModel.GetField(value), (value, name) => immoModel.ChangeField(value, name), "Assigment", () => true, () => true)
+            };
+        }
         public string Name
         {
             get { return changeableImmo.Name; }
@@ -196,8 +216,8 @@ namespace IntershipsZ7.ViewModels
             get { return changeableImmo.Location; }
             set
             {
-                if(Changed(value))
-                OnPropertyChanged();
+                if (Changed(value))
+                    OnPropertyChanged();
             }
         }
 
@@ -206,8 +226,8 @@ namespace IntershipsZ7.ViewModels
             get { return changeableImmo.Price; }
             set
             {
-                if(Changed(value))
-                OnPropertyChanged();
+                if (Changed(value))
+                    OnPropertyChanged();
             }
         }
 
@@ -216,18 +236,18 @@ namespace IntershipsZ7.ViewModels
             get { return changeableImmo.NumbRooms; }
             set
             {
-                if(Changed(value))
-                OnPropertyChanged();
+                if (Changed(value))
+                    OnPropertyChanged();
             }
         }
-    
+
         public string TypeApart
         {
             get { return changeableImmo.TypeApart; }
             set
             {
-                if(Changed(value))
-                OnPropertyChanged();
+                if (Changed(value))
+                    OnPropertyChanged();
             }
         }
 
@@ -237,7 +257,7 @@ namespace IntershipsZ7.ViewModels
             set
             {
                 if (Changed(value))
-                OnPropertyChanged();
+                    OnPropertyChanged();
             }
         }
 
@@ -246,8 +266,8 @@ namespace IntershipsZ7.ViewModels
             get { return changeableImmo.SizePlot; }
             set
             {
-                if(Changed(value))
-                OnPropertyChanged();
+                if (Changed(value))
+                    OnPropertyChanged();
             }
         }
 
@@ -256,8 +276,8 @@ namespace IntershipsZ7.ViewModels
             get { return changeableImmo.Assigment; }
             set
             {
-                if(Changed(value))
-                OnPropertyChanged();
+                if (Changed(value))
+                    OnPropertyChanged();
             }
         }
 
@@ -270,7 +290,7 @@ namespace IntershipsZ7.ViewModels
             set
             {
                 if (Changed(value, "Type"))
-                OnPropertyChanged();
+                    OnPropertyChanged();
             }
         }
 
@@ -311,6 +331,6 @@ namespace IntershipsZ7.ViewModels
             }
 
 
+        }
     }
-}
 }

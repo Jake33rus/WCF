@@ -1,6 +1,9 @@
-﻿using System;
+﻿using IntershipsZ7.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,57 +11,55 @@ namespace IntershipsZ7.ViewModels
 {
     public class FieldViewModel:ChangeNotifier
     {
-        private string value;
-        public string Value
+        Func<string,object> getValue;
+        Func<string, object, object> setValue;
+        Func<bool> getEnabled, getVisible;
+        string nameField;
+        public object Value
         {
-            get { return value; }
+            get
+            {
+                return getValue(nameField);
+            }
             set
             {
-                this.value = value;
+                setValue(nameField, value);
                 OnPropertyChanged();
             }
         }
         private string caption;
         public string Caption
         {
-            get { return caption; }
+            get { return nameField; }
             set
             {
-                caption = value;
+                caption = nameField;
                 OnPropertyChanged();
             }
         }
-        private bool enable;
         public bool Enable
         {
-            get { return enable; }
-            set
-            {
-                enable = value;
-                OnPropertyChanged();
-            }
+            get { return getEnabled(); }
         }
-        private bool visible;
         public bool Visible
         {
-            get { return visible; }
-            set
-            {
-                visible = value;
-                OnPropertyChanged();
-            }
+            get { return getVisible(); }
         }
         private string editorType;
 
-        public FieldViewModel(string value, string caption="", bool enable=true, bool visible=true, string editorType="")
+       /* public FieldViewModel(T obj, Expression<Func<T,TProp>> property)
         {
-            Value = value;
-            Caption = caption;
-            Enable = enable;
-            Visible = visible;
-            EditorType = editorType;
+            var memberExperession = (MemberExpression) property.Body;
+            targetPropertyInfo = (PropertyInfo) memberExperession.Member;
+        }*/
+        public FieldViewModel(Func<string,object> getValue,Func<string, object, object> setValue, string nameField, Func<bool> getVisible, Func<bool> getEnabled)
+        {
+            this.getValue = getValue;
+            this.nameField = nameField;
+            this.setValue = setValue;
+            this.getEnabled = getEnabled;
+            this.getVisible = getVisible;
         }
-
         public string EditorType
         {
             get { return editorType; }

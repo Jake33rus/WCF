@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +13,12 @@ namespace IntershipsZ7.Models
     {
         ServiceClient client;
 
+        static PropertyInfo[] immoProperty;
+        static ImmoModel()
+        {
+            immoProperty = typeof(Immovables).GetProperties(); 
+        }
+        
         public ImmoModel(ServiceClient client, Immovables immo)
         {
             this.client = client;
@@ -31,5 +39,21 @@ namespace IntershipsZ7.Models
         {
             return client.CancelEdit();
         }
+        public object GetField(string fieldName = "")
+        {
+            foreach (PropertyInfo prop in immoProperty)
+            {
+                if (prop.Name == fieldName)
+                {
+                    var temp = prop.GetValue(Immo);
+                    if (temp != null)
+                    {
+                        return temp;
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 }
